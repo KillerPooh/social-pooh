@@ -3,7 +3,7 @@
 -- Server version                :5.5.25 - MySQL Community Server (GPL)
 -- Server OS                     :Win32
 -- HeidiSQL Версия               :7.0.0.4244
--- Создано                       :2013-03-30 14:27:34
+-- Создано                       :2013-03-30 17:34:55
 -- --------------------------------------------------------
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
@@ -26,6 +26,8 @@ CREATE TABLE IF NOT EXISTS `groups` (
 
 -- Dumping data for table social-pooh.groups: ~0 rows (approximately)
 /*!40000 ALTER TABLE `groups` DISABLE KEYS */;
+INSERT INTO `groups` (`id`, `group_name`, `group_desc`) VALUES
+	(1, 'тестовая группа', 'описание группы');
 /*!40000 ALTER TABLE `groups` ENABLE KEYS */;
 
 
@@ -51,6 +53,8 @@ CREATE TABLE IF NOT EXISTS `profile` (
 
 -- Dumping data for table social-pooh.profile: ~0 rows (approximately)
 /*!40000 ALTER TABLE `profile` DISABLE KEYS */;
+INSERT INTO `profile` (`id`, `first_name`, `second_name`, `third_name`, `fourth_name`, `group_id`, `city`, `profession`, `profile_photo`, `icq`, `skype`, `mobile`, `about`) VALUES
+	(1, 'имя', 'фамилия', 'отчество', NULL, 1, 'город', NULL, NULL, NULL, NULL, NULL, NULL);
 /*!40000 ALTER TABLE `profile` ENABLE KEYS */;
 
 
@@ -59,6 +63,7 @@ CREATE TABLE IF NOT EXISTS `users` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
   `login` varchar(16) NOT NULL,
   `password` varchar(35) NOT NULL,
+  `email` varchar(35) NOT NULL,
   `profile_id` int(10) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `FK_users_profile` (`profile_id`),
@@ -67,6 +72,8 @@ CREATE TABLE IF NOT EXISTS `users` (
 
 -- Dumping data for table social-pooh.users: ~0 rows (approximately)
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
+INSERT INTO `users` (`id`, `login`, `password`, `email`, `profile_id`) VALUES
+	(1, 'test', 'test', 'test@test.ru', 1);
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
 /*!40014 SET FOREIGN_KEY_CHECKS=IF(@OLD_FOREIGN_KEY_CHECKS IS NULL, 1, @OLD_FOREIGN_KEY_CHECKS) */;
