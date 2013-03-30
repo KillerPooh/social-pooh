@@ -3,7 +3,7 @@
 -- Server version                :5.5.25 - MySQL Community Server (GPL)
 -- Server OS                     :Win32
 -- HeidiSQL Версия               :7.0.0.4244
--- Создано                       :2013-03-30 14:18:47
+-- Создано                       :2013-03-30 14:27:34
 -- --------------------------------------------------------
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
@@ -20,6 +20,7 @@ USE `social-pooh`;
 CREATE TABLE IF NOT EXISTS `groups` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
   `group_name` varchar(35) NOT NULL,
+  `group_desc` text,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -39,6 +40,10 @@ CREATE TABLE IF NOT EXISTS `profile` (
   `city` varchar(35) NOT NULL,
   `profession` varchar(65) DEFAULT NULL,
   `profile_photo` varchar(35) DEFAULT NULL,
+  `icq` varchar(9) DEFAULT NULL,
+  `skype` varchar(35) DEFAULT NULL,
+  `mobile` varchar(24) DEFAULT NULL,
+  `about` text,
   PRIMARY KEY (`id`),
   KEY `FK_profile_groups` (`group_id`),
   CONSTRAINT `FK_profile_groups` FOREIGN KEY (`group_id`) REFERENCES `groups` (`id`)
