@@ -85,6 +85,54 @@ class SiteController extends Controller
         ));
 	}
 
+    public function actionRegister()
+    {
+        $model = new Users;
+        $profile = new Profile;
+        $group = Groups::model()->findAll();
+        $groups['0'] = 'без группы';
+        for($i=0, $count=count($group); $i<$count; $i++)
+        {
+            $id = $group[$i]->id;
+            $groups[$id] = $group[$i]->group_name;
+        }
+
+        if(isset($_POST['ajax']) && $_POST['ajax']==='register-form')
+        {
+            echo CActiveForm::validate($model);
+            Yii::app()->end();
+        }
+
+        if(isset($_POST['Users']) AND isset($_POST['Profile']))
+        {
+            $model->attributes=$_POST['Users'];
+            $profile->attributes=$_POST['Profile'];
+            if($model->validate() AND $profile->validate()){
+                if($profile->save()){
+                    $model->profile_id = $profile->id;
+                    if($model->save()){
+                        $this->redirect(Yii::app()->user->returnUrl);
+                    }
+                }
+            } else {
+                echo "err";
+                /*if($model->errorCode==UserIdentity::ERROR_USERNAME_INVALID){
+                    $model->addError('login','Login invalid');
+                } elseif($model->errorCode==UserIdentity::ERROR_PASSWORD_INVALID) {
+                    $model->addError('password','Password invalid');
+                } else {
+                    // skip
+                }*/
+            }
+        }
+
+        $this->render('register',array(
+            'model'=>$model,
+            'profile'=>$profile,
+            'groups'=>$groups,
+        ));
+    }
+
 	public function actionLogout()
 	{
 		Yii::app()->user->logout();

@@ -34,9 +34,11 @@ class Users extends CActiveRecord
 	public function rules()
 	{
 		return array(
-			array('login, password, email, profile_id', 'required'),
+			array('login, password, email', 'required'),
 			array('profile_id', 'numerical', 'integerOnly'=>true),
+            array('email', 'email'),
 			array('login', 'length', 'max'=>16),
+            array('login, email', 'unique'),
 			array('password, email', 'length', 'max'=>35),
             array('rememberMe', 'boolean'),
 			// The following rule is used by search().

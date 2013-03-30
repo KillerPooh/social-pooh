@@ -50,8 +50,8 @@ class Profile extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('id, first_name, second_name, group_id, city', 'required'),
-			array('id, group_id', 'numerical', 'integerOnly'=>true),
+			array('first_name, second_name, group_id, city', 'required'),
+			array('group_id', 'numerical', 'integerOnly'=>true),
 			array('first_name, second_name, third_name, fourth_name, mobile', 'length', 'max'=>24),
 			array('city, profile_photo, skype', 'length', 'max'=>35),
 			array('profession', 'length', 'max'=>65),
