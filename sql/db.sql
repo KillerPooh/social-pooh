@@ -3,7 +3,7 @@
 -- Server version                :5.5.25 - MySQL Community Server (GPL)
 -- Server OS                     :Win32
 -- HeidiSQL Версия               :7.0.0.4244
--- Создано                       :2013-03-30 18:08:48
+-- Создано                       :2013-03-31 22:20:53
 -- --------------------------------------------------------
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
@@ -49,9 +49,9 @@ CREATE TABLE IF NOT EXISTS `profile` (
   PRIMARY KEY (`id`),
   KEY `FK_profile_groups` (`group_id`),
   CONSTRAINT `FK_profile_groups` FOREIGN KEY (`group_id`) REFERENCES `groups` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 
--- Dumping data for table social-pooh.profile: ~2 rows (approximately)
+-- Dumping data for table social-pooh.profile: ~3 rows (approximately)
 /*!40000 ALTER TABLE `profile` DISABLE KEYS */;
 INSERT INTO `profile` (`id`, `first_name`, `second_name`, `third_name`, `fourth_name`, `group_id`, `city`, `profession`, `profile_photo`, `icq`, `skype`, `mobile`, `about`) VALUES
 	(1, 'имя', 'фамилия', 'отчество', NULL, 1, 'город', NULL, NULL, NULL, NULL, NULL, NULL),
@@ -66,16 +66,19 @@ CREATE TABLE IF NOT EXISTS `users` (
   `password` varchar(35) NOT NULL,
   `email` varchar(35) NOT NULL,
   `profile_id` int(10) DEFAULT NULL,
+  `identity` varchar(255) DEFAULT NULL,
+  `network` varchar(255) DEFAULT NULL,
+  `state` int(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   KEY `FK_users_profile` (`profile_id`),
   CONSTRAINT `FK_users_profile` FOREIGN KEY (`profile_id`) REFERENCES `profile` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 
--- Dumping data for table social-pooh.users: ~2 rows (approximately)
+-- Dumping data for table social-pooh.users: ~3 rows (approximately)
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` (`id`, `login`, `password`, `email`, `profile_id`) VALUES
-	(1, 'test', 'test', 'test@test.ru', 1),
-	(3, 'test2', 'test2', 'test@test.fs', 4);
+INSERT INTO `users` (`id`, `login`, `password`, `email`, `profile_id`, `identity`, `network`, `state`) VALUES
+	(1, 'test', 'test', 'test@test.ru', 1, NULL, NULL, 0),
+	(3, 'test2', 'test2', 'test@test.fs', 4, NULL, NULL, 0);
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
 /*!40014 SET FOREIGN_KEY_CHECKS=IF(@OLD_FOREIGN_KEY_CHECKS IS NULL, 1, @OLD_FOREIGN_KEY_CHECKS) */;

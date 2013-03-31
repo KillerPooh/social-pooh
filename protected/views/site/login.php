@@ -36,5 +36,13 @@ $this->breadcrumbs=array(
 		<?php echo CHtml::submitButton('Login'); ?>
 	</div>
 
+    <div class="row">
+    <?php  $this->widget('application.components.UloginWidget', array(
+            'params'=>array(
+                'redirect'=>$this->createAbsoluteUrl('/').'/ulogin/login'
+            )
+        )); ?>
+    </div>
+
 <?php $this->endWidget(); ?>
 </div><!-- form -->

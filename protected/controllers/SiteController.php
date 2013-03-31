@@ -115,14 +115,7 @@ class SiteController extends Controller
                     }
                 }
             } else {
-                echo "err";
-                /*if($model->errorCode==UserIdentity::ERROR_USERNAME_INVALID){
-                    $model->addError('login','Login invalid');
-                } elseif($model->errorCode==UserIdentity::ERROR_PASSWORD_INVALID) {
-                    $model->addError('password','Password invalid');
-                } else {
-                    // skip
-                }*/
+                // skip
             }
         }
 

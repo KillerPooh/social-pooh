@@ -35,15 +35,16 @@ class Users extends CActiveRecord
 	{
 		return array(
 			array('login, password, email', 'required'),
-			array('profile_id', 'numerical', 'integerOnly'=>true),
+			array('profile_id, state', 'numerical', 'integerOnly'=>true),
             array('email', 'email'),
 			array('login', 'length', 'max'=>16),
             array('login, email', 'unique'),
 			array('password, email', 'length', 'max'=>35),
             array('rememberMe', 'boolean'),
+            array('identity, network', 'length', 'max'=>255),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, login, password, email, profile_id', 'safe', 'on'=>'search'),
+			array('id, login, password, email, profile_id, identity, network, state', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -74,6 +75,9 @@ class Users extends CActiveRecord
 		$criteria->compare('password',$this->password,true);
 		$criteria->compare('email',$this->email,true);
 		$criteria->compare('profile_id',$this->profile_id);
+        $criteria->compare('identity',$this->identity,true);
+        $criteria->compare('network',$this->network,true);
+        $criteria->compare('state',$this->state);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
