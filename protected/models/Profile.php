@@ -95,6 +95,8 @@ class Profile extends CActiveRecord
 			'skype' => 'Skype',
 			'mobile' => 'Mobile',
 			'about' => 'About',
+
+            'first_name_author' => 'Автор',
 		);
 	}
 

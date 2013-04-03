@@ -8,9 +8,13 @@ return array(
 	'import'=>array(
 		'application.models.*',
 		'application.components.*',
+        'application.modules.rights.*',
+        'application.modules.rights.models.*',
+        'application.modules.rights.components.*',
 	),
 
 	'modules'=>array(
+        'rights',
 		'gii'=>array(
 			'class'=>'system.gii.GiiModule',
 			'password'=>'1',
@@ -19,13 +23,25 @@ return array(
 	),
 
 	'components'=>array(
-		'user'=>array(
-			'allowAutoLogin'=>true,
-		),
+        'user'=>array(
+            'class'=>'RWebUser',
+            'allowAutoLogin'=>true,
+            'loginUrl'=>array('/site/login'),
+        ),
+        'authManager'=>array(
+            'class'=>'RDbAuthManager',
+            'defaultRoles'=>array('Guest','Authenticated','Admins'),
+            'connectionID'=>'db',
+            'itemTable'=>'authitem',
+            'itemChildTable'=>'authitemchild',
+            'assignmentTable'=>'authassignment',
+            'rightsTable'=>'rights',
+        ),
 		'urlManager'=>array(
 			'urlFormat'=>'path',
             'showScriptName'=>false,
 			'rules'=>array(
+                ''=>'news/index',
 				'<controller:\w+>/<id:\d+>'=>'<controller>/view',
 				'<controller:\w+>/<action:\w+>/<id:\d+>'=>'<controller>/<action>',
 				'<controller:\w+>/<action:\w+>'=>'<controller>/<action>',
@@ -62,5 +78,8 @@ return array(
 
 	'params'=>array(
 		'adminEmail'=>'webmaster@example.com',
+        'rights'=>array(
+            'test',
+        )
 	),
 );

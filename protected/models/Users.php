@@ -51,7 +51,8 @@ class Users extends CActiveRecord
 	public function relations()
 	{
 		return array(
-			'profile' => array(self::BELONGS_TO, 'Profile', 'profile_id'),
+            'news' => array(self::HAS_MANY, 'News', 'user_id'),
+            'profile' => array(self::BELONGS_TO, 'Profile', 'profile_id'),
 		);
 	}
 

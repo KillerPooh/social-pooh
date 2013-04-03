@@ -61,7 +61,7 @@ class UloginController extends Controller
                     $model->profile_id = $profile->id;
                     $model->state = '1';
                     if($model->save()){
-                        //$this->redirect(Yii::app()->user->returnUrl);
+                        $this->redirect(Yii::app()->user->returnUrl);
                     }
                 }
             } else {

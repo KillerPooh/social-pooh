@@ -7,7 +7,7 @@ class UloginWidget extends CWidget
         'display'       =>  'panel',
         'fields'        =>  'first_name,last_name,email',
         'providers'     =>  'vkontakte,odnoklassniki,mailru,facebook',
-        'hidden'        =>  'twitter,google,yandex,livejournal,openid,lastfm,linkedin,liveid,soundcloud,steam',
+        'hidden'        =>  'google,yandex,livejournal,openid,lastfm,linkedin,liveid,soundcloud,steam', // twitter
         'redirect'      =>  '',
         'logout_url'    =>  '/ulogin/logout'
     );
