@@ -126,6 +126,45 @@ class SiteController extends Controller
         ));
     }
 
+    public function actionProfile()
+    {
+        $model = Users::model()->findByPk(Yii::app()->user->id);
+        $profile = $model->profile;
+        $group = Groups::model()->findAll();
+        $groups['0'] = 'без группы';
+        for($i=0, $count=count($group); $i<$count; $i++)
+        {
+            $id = $group[$i]->id;
+            $groups[$id] = $group[$i]->group_name;
+        }
+
+        if(isset($_POST['ajax']) && $_POST['ajax']==='profile-form')
+        {
+            echo CActiveForm::validate($model);
+            Yii::app()->end();
+        }
+
+        if(isset($_POST['Profile']))
+        {
+            $profile->attributes=$_POST['Profile'];
+            if($model->validate() AND $profile->validate()){
+                if($profile->save()){
+                    if($model->save()){
+                        $this->redirect(Yii::app()->user->returnUrl);
+                    }
+                }
+            } else {
+                // skip
+            }
+        }
+
+        $this->render('profile',array(
+            'model'=>$model,
+            'profile'=>$profile,
+            'groups'=>$groups,
+        ));
+    }
+
 	public function actionLogout()
 	{
 		Yii::app()->user->logout();

@@ -9,8 +9,13 @@
  * @property string $password
  * @property string $email
  * @property integer $profile_id
+ * @property string $identity
+ * @property string $network
+ * @property integer $state
+ * @property integer $access
  *
  * The followings are the available model relations:
+ * @property News[] $news
  * @property Profile $profile
  */
 class Users extends CActiveRecord
@@ -35,7 +40,7 @@ class Users extends CActiveRecord
 	{
 		return array(
 			array('login, password, email', 'required'),
-			array('profile_id, state', 'numerical', 'integerOnly'=>true),
+			array('profile_id, state, access', 'numerical', 'integerOnly'=>true),
             array('email', 'email'),
 			array('login', 'length', 'max'=>16),
             array('login, email', 'unique'),
@@ -44,7 +49,7 @@ class Users extends CActiveRecord
             array('identity, network', 'length', 'max'=>255),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, login, password, email, profile_id, identity, network, state', 'safe', 'on'=>'search'),
+			array('id, login, password, email, profile_id, identity, network, state, access', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -64,8 +69,26 @@ class Users extends CActiveRecord
 			'password' => 'Password',
 			'email' => 'Email',
 			'profile_id' => 'Profile',
+            'identity' => 'Identity',
+            'network' => 'Network',
+            'state' => 'State',
+            'access' => 'Access',
 		);
 	}
+
+    public function iAdmin()
+    {
+        if(!Yii::app()->user->isGuest){
+            $model = Users::model()->findByPk(Yii::app()->user->id);
+            if(isset($model) AND $model->access=='1'){
+                return true;
+            } else {
+                return false;
+            }
+        } else {
+            return false;
+        }
+    }
 
 	public function search()
 	{
@@ -79,6 +102,7 @@ class Users extends CActiveRecord
         $criteria->compare('identity',$this->identity,true);
         $criteria->compare('network',$this->network,true);
         $criteria->compare('state',$this->state);
+        $criteria->compare('access',$this->access);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,

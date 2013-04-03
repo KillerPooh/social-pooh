@@ -27,13 +27,24 @@
 	</div><!-- header -->
 
 	<div id="mainmenu">
-		<?php $this->widget('zii.widgets.CMenu',array(
+		<?php if(!Yii::app()->user->isGuest){
+            $name = Users::model()->findByPk(Yii::app()->user->id);
+            $name = $name->profile->first_name." ".$name->profile->second_name;
+        } else {
+            $name='';
+        }
+        $this->widget('zii.widgets.CMenu',array(
 			'items'=>array(
-				array('label'=>'Home', 'url'=>array('/site/index')),
-				array('label'=>'About', 'url'=>array('/site/page', 'view'=>'about')),
-				array('label'=>'Contact', 'url'=>array('/site/contact')),
-				array('label'=>'Login', 'url'=>array('/site/login'), 'visible'=>Yii::app()->user->isGuest),
-				array('label'=>'Logout ('.Yii::app()->user->name.')', 'url'=>array('/site/logout'), 'visible'=>!Yii::app()->user->isGuest)
+				array('label'=>'Главная', 'url'=>array('/')),
+                array('label'=>'Выпускники', 'url'=>array('/groups/index')),
+                array('label'=>'Фотогалерея', 'url'=>array('/gallery/index')),
+                array('label'=>'Форум', 'url'=>array('/forum/index')),
+				array('label'=>'О нас', 'url'=>array('/site/page', 'view'=>'about')),
+				array('label'=>'Обратная связь', 'url'=>array('/site/contact')),
+				array('label'=>'Войти', 'url'=>array('/site/login'), 'visible'=>Yii::app()->user->isGuest),
+                array('label'=>'Профиль', 'url'=>array('/site/profile'), 'visible'=>!Yii::app()->user->isGuest),
+				array('label'=>'Выйти ('.$name.')', 'url'=>array('/site/logout'), 'visible'=>!Yii::app()->user->isGuest),
+                array('label'=>'Админка', 'url'=>array('/admin/index'), 'visible'=>Users::model()->iAdmin()),
 			),
 		)); ?>
 	</div><!-- mainmenu -->
