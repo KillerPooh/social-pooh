@@ -129,7 +129,7 @@ class ThreadController extends ForumBaseController
         $thread = Thread::model()->findByPk($id);
         if(null == $thread)
             throw new CHttpException(404, 'Thread not found.');
-        if(!Yii::app()->user->isAdmin && $thread->is_locked)
+        if(!Users::model()->iAdmin() && $thread->is_locked)
             throw new CHttpException(403, 'Thread is locked.');
 
         $model=new PostForm;

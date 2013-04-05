@@ -3,7 +3,7 @@
 -- Server version                :5.5.25 - MySQL Community Server (GPL)
 -- Server OS                     :Win32
 -- HeidiSQL Версия               :7.0.0.4244
--- Создано                       :2013-04-05 12:31:47
+-- Создано                       :2013-04-05 12:35:22
 -- --------------------------------------------------------
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
@@ -159,7 +159,8 @@ CREATE TABLE IF NOT EXISTS `post` (
 -- Dumping data for table social-pooh.post: ~1 rows (approximately)
 /*!40000 ALTER TABLE `post` DISABLE KEYS */;
 INSERT INTO `post` (`id`, `author_id`, `thread_id`, `editor_id`, `content`, `created`, `updated`) VALUES
-	(1, 1, 1, NULL, 'text', 1365150034, 1365150034);
+	(1, 1, 1, NULL, 'text', 1365150034, 1365150034),
+	(2, 1, 1, NULL, 'test reply', 1365150850, 1365150850);
 /*!40000 ALTER TABLE `post` ENABLE KEYS */;
 
 
@@ -222,7 +223,7 @@ CREATE TABLE IF NOT EXISTS `thread` (
 -- Dumping data for table social-pooh.thread: ~1 rows (approximately)
 /*!40000 ALTER TABLE `thread` DISABLE KEYS */;
 INSERT INTO `thread` (`id`, `forum_id`, `subject`, `is_sticky`, `is_locked`, `view_count`, `created`) VALUES
-	(1, 2, 'test thread', 0, 0, 2, 1365150034);
+	(1, 2, 'test thread', 0, 0, 5, 1365150034);
 /*!40000 ALTER TABLE `thread` ENABLE KEYS */;
 
 

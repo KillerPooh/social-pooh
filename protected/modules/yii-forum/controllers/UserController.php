@@ -34,7 +34,7 @@ class UserController extends ForumBaseController
             array('allow',
                 'actions' => array('create', 'update', 'delete'),
                 'users' => array('@'), // Must be authenticated
-                'expression' => 'Yii::app()->user->isAdmin', // And must be admin
+                'expression' => 'Users::model()->iAdmin()', // And must be admin
             ),
 */
 
