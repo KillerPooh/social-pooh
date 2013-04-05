@@ -3,7 +3,7 @@
 -- Server version                :5.5.25 - MySQL Community Server (GPL)
 -- Server OS                     :Win32
 -- HeidiSQL Версия               :7.0.0.4244
--- Создано                       :2013-04-05 12:28:39
+-- Создано                       :2013-04-05 12:31:47
 -- --------------------------------------------------------
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
