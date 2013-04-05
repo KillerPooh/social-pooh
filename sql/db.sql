@@ -3,7 +3,7 @@
 -- Server version                :5.5.25 - MySQL Community Server (GPL)
 -- Server OS                     :Win32
 -- HeidiSQL Версия               :7.0.0.4244
--- Создано                       :2013-04-03 23:07:42
+-- Создано                       :2013-04-05 12:28:39
 -- --------------------------------------------------------
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
@@ -61,6 +61,46 @@ CREATE TABLE IF NOT EXISTS `authitemchild` (
 /*!40000 ALTER TABLE `authitemchild` ENABLE KEYS */;
 
 
+-- Dumping structure for table social-pooh.forum
+CREATE TABLE IF NOT EXISTS `forum` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `parent_id` int(10) unsigned DEFAULT NULL,
+  `title` varchar(120) NOT NULL,
+  `description` text NOT NULL,
+  `listorder` smallint(5) unsigned NOT NULL,
+  `is_locked` tinyint(1) unsigned NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `FK_forum_forum` (`parent_id`),
+  CONSTRAINT `FK_forum_forum` FOREIGN KEY (`parent_id`) REFERENCES `forum` (`id`) ON DELETE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+
+-- Dumping data for table social-pooh.forum: ~2 rows (approximately)
+/*!40000 ALTER TABLE `forum` DISABLE KEYS */;
+INSERT INTO `forum` (`id`, `parent_id`, `title`, `description`, `listorder`, `is_locked`) VALUES
+	(1, NULL, 'test forum', 'test test test', 0, 0),
+	(2, 1, 'test subforum', 'test', 0, 0);
+/*!40000 ALTER TABLE `forum` ENABLE KEYS */;
+
+
+-- Dumping structure for table social-pooh.forumuser
+CREATE TABLE IF NOT EXISTS `forumuser` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `siteid` varchar(200) NOT NULL,
+  `name` varchar(200) NOT NULL,
+  `firstseen` varchar(16) DEFAULT NULL,
+  `lastseen` varchar(16) DEFAULT NULL,
+  `signature` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `siteid` (`siteid`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+
+-- Dumping data for table social-pooh.forumuser: ~1 rows (approximately)
+/*!40000 ALTER TABLE `forumuser` DISABLE KEYS */;
+INSERT INTO `forumuser` (`id`, `siteid`, `name`, `firstseen`, `lastseen`, `signature`) VALUES
+	(1, '1', 'test', '1365149307', '1365149307', NULL);
+/*!40000 ALTER TABLE `forumuser` ENABLE KEYS */;
+
+
 -- Dumping structure for table social-pooh.groups
 CREATE TABLE IF NOT EXISTS `groups` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
@@ -98,6 +138,31 @@ INSERT INTO `news` (`id`, `user_id`, `title`, `content`, `views`, `data`) VALUES
 /*!40000 ALTER TABLE `news` ENABLE KEYS */;
 
 
+-- Dumping structure for table social-pooh.post
+CREATE TABLE IF NOT EXISTS `post` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `author_id` int(10) unsigned NOT NULL,
+  `thread_id` int(10) unsigned NOT NULL,
+  `editor_id` int(10) unsigned DEFAULT NULL,
+  `content` text NOT NULL,
+  `created` int(10) unsigned NOT NULL,
+  `updated` int(10) unsigned NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `FK_post_author` (`author_id`),
+  KEY `FK_post_editor` (`editor_id`),
+  KEY `FK_post_thread` (`thread_id`),
+  CONSTRAINT `FK_post_author` FOREIGN KEY (`author_id`) REFERENCES `forumuser` (`id`) ON DELETE CASCADE,
+  CONSTRAINT `FK_post_editor` FOREIGN KEY (`editor_id`) REFERENCES `forumuser` (`id`) ON DELETE CASCADE,
+  CONSTRAINT `FK_post_thread` FOREIGN KEY (`thread_id`) REFERENCES `thread` (`id`) ON DELETE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+
+-- Dumping data for table social-pooh.post: ~1 rows (approximately)
+/*!40000 ALTER TABLE `post` DISABLE KEYS */;
+INSERT INTO `post` (`id`, `author_id`, `thread_id`, `editor_id`, `content`, `created`, `updated`) VALUES
+	(1, 1, 1, NULL, 'text', 1365150034, 1365150034);
+/*!40000 ALTER TABLE `post` ENABLE KEYS */;
+
+
 -- Dumping structure for table social-pooh.profile
 CREATE TABLE IF NOT EXISTS `profile` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
@@ -116,7 +181,7 @@ CREATE TABLE IF NOT EXISTS `profile` (
   PRIMARY KEY (`id`),
   KEY `FK_profile_groups` (`group_id`),
   CONSTRAINT `FK_profile_groups` FOREIGN KEY (`group_id`) REFERENCES `groups` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 
 -- Dumping data for table social-pooh.profile: ~2 rows (approximately)
 /*!40000 ALTER TABLE `profile` DISABLE KEYS */;
@@ -140,6 +205,27 @@ CREATE TABLE IF NOT EXISTS `rights` (
 /*!40000 ALTER TABLE `rights` ENABLE KEYS */;
 
 
+-- Dumping structure for table social-pooh.thread
+CREATE TABLE IF NOT EXISTS `thread` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `forum_id` int(10) unsigned NOT NULL,
+  `subject` varchar(120) NOT NULL,
+  `is_sticky` tinyint(1) unsigned NOT NULL,
+  `is_locked` tinyint(1) unsigned NOT NULL,
+  `view_count` bigint(20) unsigned NOT NULL,
+  `created` int(10) unsigned NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `FK_thread_forum` (`forum_id`),
+  CONSTRAINT `FK_thread_forum` FOREIGN KEY (`forum_id`) REFERENCES `forum` (`id`) ON DELETE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+
+-- Dumping data for table social-pooh.thread: ~1 rows (approximately)
+/*!40000 ALTER TABLE `thread` DISABLE KEYS */;
+INSERT INTO `thread` (`id`, `forum_id`, `subject`, `is_sticky`, `is_locked`, `view_count`, `created`) VALUES
+	(1, 2, 'test thread', 0, 0, 2, 1365150034);
+/*!40000 ALTER TABLE `thread` ENABLE KEYS */;
+
+
 -- Dumping structure for table social-pooh.users
 CREATE TABLE IF NOT EXISTS `users` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
@@ -154,7 +240,7 @@ CREATE TABLE IF NOT EXISTS `users` (
   PRIMARY KEY (`id`),
   KEY `FK_users_profile` (`profile_id`),
   CONSTRAINT `FK_users_profile` FOREIGN KEY (`profile_id`) REFERENCES `profile` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
 -- Dumping data for table social-pooh.users: ~2 rows (approximately)
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;

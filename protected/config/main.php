@@ -15,6 +15,9 @@ return array(
 
 	'modules'=>array(
         'rights',
+        'forum'=>array(
+            'class'=>'application.modules.yii-forum.YiiForumModule',
+        ),
 		'gii'=>array(
 			'class'=>'system.gii.GiiModule',
 			'password'=>'1',

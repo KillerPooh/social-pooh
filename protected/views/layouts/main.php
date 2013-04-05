@@ -38,7 +38,7 @@
 				array('label'=>'Главная', 'url'=>array('/')),
                 array('label'=>'Выпускники', 'url'=>array('/groups/index')),
                 array('label'=>'Фотогалерея', 'url'=>array('/gallery/index')),
-                array('label'=>'Форум', 'url'=>array('/forum/index')),
+                array('label'=>'Форум', 'url'=>array('/forum')),
 				array('label'=>'О нас', 'url'=>array('/site/page', 'view'=>'about')),
 				array('label'=>'Обратная связь', 'url'=>array('/site/contact')),
 				array('label'=>'Войти', 'url'=>array('/site/login'), 'visible'=>Yii::app()->user->isGuest),

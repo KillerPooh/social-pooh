@@ -163,5 +163,4 @@ pip-log.txt
 
 # phpstorm
 .idea/
-assets/
 protected/runtime/*.*
