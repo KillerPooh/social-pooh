@@ -106,6 +106,7 @@ class GroupsController extends Controller
 	 */
 	public function actionAdmin()
 	{
+    $this->layout = '//layouts/column2';
 		$model=new Groups('search');
 		$model->unsetAttributes();  // clear any default values
 		if(isset($_GET['Groups']))
