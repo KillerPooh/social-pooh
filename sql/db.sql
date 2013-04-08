@@ -3,7 +3,7 @@
 -- Server version                :5.5.25 - MySQL Community Server (GPL)
 -- Server OS                     :Win32
 -- HeidiSQL Версия               :7.0.0.4244
--- Создано                       :2013-04-05 12:35:22
+-- Создано                       :2013-04-08 22:45:59
 -- --------------------------------------------------------
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
@@ -14,6 +14,22 @@
 -- Dumping database structure for social-pooh
 CREATE DATABASE IF NOT EXISTS `social-pooh` /*!40100 DEFAULT CHARACTER SET utf8 */;
 USE `social-pooh`;
+
+
+-- Dumping structure for table social-pooh.albums
+CREATE TABLE IF NOT EXISTS `albums` (
+  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `profile_id` int(10) DEFAULT NULL,
+  `album_name` varchar(35) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
+
+-- Dumping data for table social-pooh.albums: ~0 rows (approximately)
+/*!40000 ALTER TABLE `albums` DISABLE KEYS */;
+INSERT INTO `albums` (`id`, `profile_id`, `album_name`) VALUES
+	(6, 1, 'Первый альбом'),
+	(7, 1, 'Второй альбом');
+/*!40000 ALTER TABLE `albums` ENABLE KEYS */;
 
 
 -- Dumping structure for table social-pooh.authassignment
@@ -138,6 +154,28 @@ INSERT INTO `news` (`id`, `user_id`, `title`, `content`, `views`, `data`) VALUES
 /*!40000 ALTER TABLE `news` ENABLE KEYS */;
 
 
+-- Dumping structure for table social-pooh.photo
+CREATE TABLE IF NOT EXISTS `photo` (
+  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `type` int(1) NOT NULL,
+  `profile_id` int(10) DEFAULT NULL,
+  `album_id` int(10) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `FK_photo_profile` (`profile_id`),
+  KEY `FK_photo_albums` (`album_id`),
+  CONSTRAINT `FK_photo_albums` FOREIGN KEY (`album_id`) REFERENCES `albums` (`id`),
+  CONSTRAINT `FK_photo_profile` FOREIGN KEY (`profile_id`) REFERENCES `profile` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8;
+
+-- Dumping data for table social-pooh.photo: ~0 rows (approximately)
+/*!40000 ALTER TABLE `photo` DISABLE KEYS */;
+INSERT INTO `photo` (`id`, `type`, `profile_id`, `album_id`) VALUES
+	(12, 1, 1, 6),
+	(13, 1, 1, 6),
+	(14, 1, 1, 6);
+/*!40000 ALTER TABLE `photo` ENABLE KEYS */;
+
+
 -- Dumping structure for table social-pooh.post
 CREATE TABLE IF NOT EXISTS `post` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
@@ -154,9 +192,9 @@ CREATE TABLE IF NOT EXISTS `post` (
   CONSTRAINT `FK_post_author` FOREIGN KEY (`author_id`) REFERENCES `forumuser` (`id`) ON DELETE CASCADE,
   CONSTRAINT `FK_post_editor` FOREIGN KEY (`editor_id`) REFERENCES `forumuser` (`id`) ON DELETE CASCADE,
   CONSTRAINT `FK_post_thread` FOREIGN KEY (`thread_id`) REFERENCES `thread` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
--- Dumping data for table social-pooh.post: ~1 rows (approximately)
+-- Dumping data for table social-pooh.post: ~2 rows (approximately)
 /*!40000 ALTER TABLE `post` DISABLE KEYS */;
 INSERT INTO `post` (`id`, `author_id`, `thread_id`, `editor_id`, `content`, `created`, `updated`) VALUES
 	(1, 1, 1, NULL, 'text', 1365150034, 1365150034),
@@ -174,7 +212,7 @@ CREATE TABLE IF NOT EXISTS `profile` (
   `group_id` int(10) NOT NULL,
   `city` varchar(35) NOT NULL,
   `profession` varchar(65) DEFAULT NULL,
-  `profile_photo` varchar(35) DEFAULT NULL,
+  `profile_photo` int(10) NOT NULL DEFAULT '0',
   `icq` varchar(9) DEFAULT NULL,
   `skype` varchar(35) DEFAULT NULL,
   `mobile` varchar(24) DEFAULT NULL,
@@ -187,8 +225,8 @@ CREATE TABLE IF NOT EXISTS `profile` (
 -- Dumping data for table social-pooh.profile: ~2 rows (approximately)
 /*!40000 ALTER TABLE `profile` DISABLE KEYS */;
 INSERT INTO `profile` (`id`, `first_name`, `second_name`, `third_name`, `fourth_name`, `group_id`, `city`, `profession`, `profile_photo`, `icq`, `skype`, `mobile`, `about`) VALUES
-	(1, 'имя', 'фамилия', 'отчество', '', 1, 'город', '', NULL, '', '', '', ''),
-	(4, 'test', 'test', 'test', NULL, 1, 'test', NULL, NULL, NULL, NULL, NULL, NULL);
+	(1, 'Имя', 'Фамилия', 'Отчество', 'Девичья фамилия', 1, 'Москва', 'Программист', 0, '123456', 'skype', '+79998887766', 'О себе, куча текста\r\nаще\r\n\r\nтест'),
+	(4, 'test', 'test', 'test', NULL, 1, 'test', NULL, 0, NULL, NULL, NULL, NULL);
 /*!40000 ALTER TABLE `profile` ENABLE KEYS */;
 
 

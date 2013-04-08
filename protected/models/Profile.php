@@ -17,13 +17,16 @@
  * @property string $skype
  * @property string $mobile
  * @property string $about
+ * @property string $photo_file
  *
  * The followings are the available model relations:
+ * @property Photo[] $photos
  * @property Groups $group
  * @property Users[] $users
  */
 class Profile extends CActiveRecord
 {
+    public $photo_file;
 	/**
 	 * Returns the static model of the specified AR class.
 	 * @param string $className active record class name.
@@ -71,8 +74,9 @@ class Profile extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
+            'photos' => array(self::HAS_MANY, 'Photo', 'profile_id'),
 			'group' => array(self::BELONGS_TO, 'Groups', 'group_id'),
-			'users' => array(self::HAS_MANY, 'Users', 'profile_id'),
+			'users' => array(self::HAS_ONE, 'Users', 'profile_id'),
 		);
 	}
 
