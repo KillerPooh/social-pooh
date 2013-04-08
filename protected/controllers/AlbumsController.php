@@ -60,6 +60,8 @@ class AlbumsController extends Controller
                             mkdir("albums/".$user->profile_id);
                         }
                         $photo->photo_file->saveAs("albums/".$user->profile_id."/".$photo->id.".".$extension);
+                        $album->last_update = date("Y.m.d H:i:s");
+                        $album->save();
                         $this->redirect($this->createAbsoluteUrl('albums/'.$album->id));
                     }
                 }
