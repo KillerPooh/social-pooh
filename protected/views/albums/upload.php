@@ -21,6 +21,11 @@ $this->menu=array(
 )); ?>
 	<?php echo $form->errorSummary($photo); ?>
 
+    <div class="row">
+        <?php echo $form->labelEx($photo,'photo_name'); ?>
+        <?php echo $form->textField($photo,'photo_name',array('size'=>35,'maxlength'=>35)); ?>
+    </div>
+
 	<div class="row">
 		<?php echo $form->labelEx($photo,'photo_file'); ?>
 		<?php echo CHtml::activeFileField($photo,'photo_file'); ?>

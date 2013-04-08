@@ -3,7 +3,7 @@
 -- Server version                :5.5.25 - MySQL Community Server (GPL)
 -- Server OS                     :Win32
 -- HeidiSQL Версия               :7.0.0.4244
--- Создано                       :2013-04-08 23:10:28
+-- Создано                       :2013-04-08 23:15:45
 -- --------------------------------------------------------
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
@@ -28,7 +28,7 @@ CREATE TABLE IF NOT EXISTS `albums` (
 -- Dumping data for table social-pooh.albums: ~2 rows (approximately)
 /*!40000 ALTER TABLE `albums` DISABLE KEYS */;
 INSERT INTO `albums` (`id`, `profile_id`, `album_name`, `last_update`) VALUES
-	(6, 1, 'Первый альбом', '2013.04.08 23:08:26'),
+	(6, 1, 'Первый альбом', '2013.04.08 23:15:23'),
 	(7, 1, 'Второй альбом', '2013.04.03 20:21:54');
 /*!40000 ALTER TABLE `albums` ENABLE KEYS */;
 
@@ -159,6 +159,7 @@ INSERT INTO `news` (`id`, `user_id`, `title`, `content`, `views`, `data`) VALUES
 CREATE TABLE IF NOT EXISTS `photo` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
   `extension` varchar(5) NOT NULL,
+  `photo_name` varchar(35) NOT NULL,
   `type` int(1) NOT NULL,
   `profile_id` int(10) DEFAULT NULL,
   `album_id` int(10) DEFAULT NULL,
@@ -167,18 +168,13 @@ CREATE TABLE IF NOT EXISTS `photo` (
   KEY `FK_photo_albums` (`album_id`),
   CONSTRAINT `FK_photo_albums` FOREIGN KEY (`album_id`) REFERENCES `albums` (`id`),
   CONSTRAINT `FK_photo_profile` FOREIGN KEY (`profile_id`) REFERENCES `profile` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8;
 
--- Dumping data for table social-pooh.photo: ~6 rows (approximately)
+-- Dumping data for table social-pooh.photo: ~7 rows (approximately)
 /*!40000 ALTER TABLE `photo` DISABLE KEYS */;
-INSERT INTO `photo` (`id`, `extension`, `type`, `profile_id`, `album_id`) VALUES
-	(12, 'png', 1, 1, 6),
-	(13, 'png', 1, 1, 6),
-	(14, 'png', 1, 1, 6),
-	(15, 'png', 1, 1, 6),
-	(16, 'png', 1, 1, 6),
-	(17, 'png', 1, 1, 6),
-	(20, 'png', 1, 1, 6);
+INSERT INTO `photo` (`id`, `extension`, `photo_name`, `type`, `profile_id`, `album_id`) VALUES
+	(21, 'png', 'Название фотки', 1, 1, 6),
+	(22, 'png', 'Вторая фотка', 1, 1, 6);
 /*!40000 ALTER TABLE `photo` ENABLE KEYS */;
 
 
