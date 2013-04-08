@@ -5,6 +5,7 @@
  *
  * The followings are the available columns in table 'photo':
  * @property integer $id
+ * @property string $extension
  * @property integer $type
  * @property integer $profile_id
  * @property integer $album_id
@@ -42,12 +43,13 @@ class Photo extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('type', 'required'),
+			array('type, extension', 'required'),
+            array('extension', 'length', 'max'=>5),
 			array('type, profile_id, album_id', 'numerical', 'integerOnly'=>true),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
 			array('id, type, profile_id, album_id', 'safe', 'on'=>'search'),
-            array('photo_file', 'file', 'types'=>'jpg, gif, png', 'on'=>'upload'),
+            array('photo_file', 'file', 'types'=>'jpg, png', 'on'=>'upload'),
 		);
 	}
 
@@ -89,6 +91,7 @@ class Photo extends CActiveRecord
 		$criteria=new CDbCriteria;
 
 		$criteria->compare('id',$this->id);
+        $criteria->compare('extension',$this->extension,true);
 		$criteria->compare('type',$this->type);
 		$criteria->compare('profile_id',$this->profile_id);
 		$criteria->compare('album_id',$this->album_id);

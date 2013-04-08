@@ -19,5 +19,5 @@ $this->menu=array(
 <h1>View Albums <?php echo $model->album_name; ?></h1>
 
 <?php for($i=0, $count=count($model->photos); $i<$count; $i++){
-    echo $model->photos[$i]->id." <img src='".$this->createAbsoluteUrl('/')."/albums/".$model->profile_id."/".$model->photos[$i]->id.".png' /><br />";
+    echo $model->photos[$i]->id." <img src='".$this->createAbsoluteUrl('/')."/albums/".$model->profile_id."/".$model->photos[$i]->id.".".$model->photos[$i]->extension."' /><br />";
 } ?>

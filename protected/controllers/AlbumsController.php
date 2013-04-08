@@ -47,14 +47,21 @@ class AlbumsController extends Controller
                 $photo->album_id = $album->id;
                 $photo->profile_id = $user->profile_id;
                 $photo->photo_file = CUploadedFile::getInstance($photo,'photo_file');
-                if($photo->save()){
-                    if(!is_dir("albums/".$user->profile_id)){
-                        mkdir("albums/".$user->profile_id);
-                    }
-                    $extension = explode(".", $photo->photo_file);
+                $temp = getimagesize($photo->photo_file->tempName);
+                if($temp['mime']=="image/png" OR $temp['mime']=="image/jpg" OR $temp['mime']=="image/jpeg"){
+                    $extension = explode("/", $temp['mime']);
                     $extension = $extension[count($extension)-1];
-                    $photo->photo_file->saveAs("albums/".$user->profile_id."/".$photo->id.".".$extension);
-                    $this->redirect($this->createAbsoluteUrl('albums/'.$album->id));
+                    if($extension=="jpeg"){
+                        $extension = "jpg";
+                    }
+                    $photo->extension = $extension;
+                    if($photo->save()){
+                        if(!is_dir("albums/".$user->profile_id)){
+                            mkdir("albums/".$user->profile_id);
+                        }
+                        $photo->photo_file->saveAs("albums/".$user->profile_id."/".$photo->id.".".$extension);
+                        $this->redirect($this->createAbsoluteUrl('albums/'.$album->id));
+                    }
                 }
 
             }
