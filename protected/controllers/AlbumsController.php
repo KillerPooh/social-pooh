@@ -19,23 +19,9 @@ class AlbumsController extends Controller
 		));
 	}
 
+    // done
     public function actionUpload($id)
     {
-        /*$album = Albums::model()->findByPk($id);
-        $photo = new Photo;
-
-        if(isset($_POST['Photo']))
-        {
-            $photo->attributes=$_POST['Photo'];
-            $photo->photo_file=CUploadedFile::getInstance($photo,'photo_file');
-            //if($photo->save())
-            //{
-                $photo->photo_file->saveAs($photo->photo_file);
-                // redirect to success page
-            //}
-        }*/
-
-
         $album = Albums::model()->findByPk($id);
         $user = Users::model()->findByPk(Yii::app()->user->id);
         $photo = new Photo;
@@ -59,7 +45,28 @@ class AlbumsController extends Controller
                         if(!is_dir("albums/".$user->profile_id)){
                             mkdir("albums/".$user->profile_id);
                         }
+                        if(!is_dir("albums/".$user->profile_id."/mini")){
+                            mkdir("albums/".$user->profile_id."/mini");
+                        }
                         $photo->photo_file->saveAs("albums/".$user->profile_id."/".$photo->id.".".$extension);
+
+                        $filename = "albums/".$user->profile_id."/".$photo->id.".".$extension;
+                        list($width, $height) = getimagesize($filename);
+                        $newwidth = '100';
+                        $newheight = round($height / ($width / $newwidth));
+                        $thumb = imagecreatetruecolor($newwidth, $newheight);
+                        if($extension=='jpg'){
+                            $source = imagecreatefromjpeg($filename);
+                        } else {
+                            $source = imagecreatefrompng($filename);
+                        }
+                        imagecopyresized($thumb, $source, 0, 0, 0, 0, $newwidth, $newheight, $width, $height);
+                        if($extension=='jpg'){
+                            imagejpeg($thumb, "albums/".$user->profile_id."/mini/".$photo->id.".".$extension);
+                        } else {
+                            imagepng($thumb, "albums/".$user->profile_id."/mini/".$photo->id.".".$extension);
+                        }
+
                         $album->last_update = date("Y.m.d H:i:s");
                         $album->save();
                         $this->redirect($this->createAbsoluteUrl('albums/'.$album->id));
@@ -87,6 +94,7 @@ class AlbumsController extends Controller
 			$model->attributes=$_POST['Albums'];
             $user = Users::model()->findByPk(Yii::app()->user->id);
             $model->profile_id = $user->profile_id;
+            $model->last_update = date("Y.m.d H:i:s");
 			if($model->save())
 				$this->redirect(array('view','id'=>$model->id));
 		}
@@ -128,12 +136,15 @@ class AlbumsController extends Controller
 			$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
 	}
 
-	/**
-	 * Lists all models.
-	 */
+	// done
 	public function actionIndex()
 	{
-		$dataProvider=new CActiveDataProvider('Albums');
+        $user = Users::model()->findByPk(Yii::app()->user->id);
+		$dataProvider=new CActiveDataProvider('Albums', array(
+            'criteria'=>array(
+                'condition'=>'profile_id='.$user->profile_id,
+            )
+        ));
 		$this->render('index',array(
 			'dataProvider'=>$dataProvider,
 		));

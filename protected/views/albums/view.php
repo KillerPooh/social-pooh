@@ -19,5 +19,7 @@ $this->menu=array(
 <h1>View Albums <?php echo $model->album_name; ?></h1>
 
 <?php for($i=0, $count=count($model->photos); $i<$count; $i++){
-    echo $model->photos[$i]->photo_name." <img src='".$this->createAbsoluteUrl('/')."/albums/".$model->profile_id."/".$model->photos[$i]->id.".".$model->photos[$i]->extension."' /><br />";
+    $mini_photo_url = $this->createAbsoluteUrl('/')."/albums/".$model->profile_id."/mini/".$model->photos[$i]->id.".".$model->photos[$i]->extension;
+    $open_url = $this->createAbsoluteUrl('photos/view',array('id'=>$model->photos[$i]->id));
+    echo "<a style='margin:5px;' href='".$open_url."'><img src='".$mini_photo_url."' /></a>";
 } ?>
