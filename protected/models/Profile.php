@@ -27,6 +27,7 @@
 class Profile extends CActiveRecord
 {
     public $photo_file;
+    public $temp;
 	/**
 	 * Returns the static model of the specified AR class.
 	 * @param string $className active record class name.
@@ -59,7 +60,7 @@ class Profile extends CActiveRecord
 			array('city, profile_photo, skype', 'length', 'max'=>35),
 			array('profession', 'length', 'max'=>65),
 			array('icq', 'length', 'max'=>9),
-			array('about', 'safe'),
+			array('about, temp', 'safe'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
 			array('id, first_name, second_name, third_name, fourth_name, group_id, city, profession, profile_photo, icq, skype, mobile, about', 'safe', 'on'=>'search'),

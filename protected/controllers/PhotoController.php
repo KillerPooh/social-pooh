@@ -18,6 +18,21 @@ class PhotoController extends Controller
 		);
 	}
 
+    public function actionNote($id)
+    {
+        $photo = Photo::model()->findByPk($id);
+        $profile=new Profile('search');
+        $profile->unsetAttributes();
+        $profile->temp = $photo->id;
+        if(isset($_GET['Profile']))
+            $profile->attributes=$_GET['Profile'];
+
+        $this->render('note',array(
+            'photo'=>$photo,
+            'profile'=>$profile,
+        ));
+    }
+
 	/**
 	 * Displays a particular model.
 	 * @param integer $id the ID of the model to be displayed
