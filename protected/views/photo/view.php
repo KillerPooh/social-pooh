@@ -19,5 +19,5 @@ $this->menu=array(
 <h1>View Photo <?php echo $model->photo_name; ?></h1>
 
 <?php $photo_url = $this->createAbsoluteUrl('/')."/albums/".$model->profile_id."/".$model->id.".".$model->extension; ?>
-<img src="<?php echo $photo_url; ?>" />
+<img style="max-width: 730px; height: auto;" src="<?php echo $photo_url; ?>" />
 
