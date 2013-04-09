@@ -81,6 +81,20 @@ class Photo extends CActiveRecord
 		);
 	}
 
+    public function iOwner($id)
+    {
+        if(!Yii::app()->user->isGuest){
+            $user = Users::model()->findByPk(Yii::app()->user->id);
+            if($id == $user->profile_id){
+                return true;
+            } else {
+                return false;
+            }
+        } else {
+            return false;
+        }
+    }
+
 	/**
 	 * Retrieves a list of models based on the current search/filter conditions.
 	 * @return CActiveDataProvider the data provider that can return the models based on the search/filter conditions.

@@ -20,6 +20,6 @@ $this->menu=array(
 
 <?php for($i=0, $count=count($model->photos); $i<$count; $i++){
     $mini_photo_url = $this->createAbsoluteUrl('/')."/albums/".$model->profile_id."/mini/".$model->photos[$i]->id.".".$model->photos[$i]->extension;
-    $open_url = $this->createAbsoluteUrl('photos/view',array('id'=>$model->photos[$i]->id));
+    $open_url = $this->createAbsoluteUrl('photo/view',array('id'=>$model->photos[$i]->id));
     echo "<a style='margin:5px;' href='".$open_url."'><img src='".$mini_photo_url."' /></a>";
 } ?>

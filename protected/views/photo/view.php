@@ -8,24 +8,16 @@ $this->breadcrumbs=array(
 );
 
 $this->menu=array(
-	array('label'=>'List Photo', 'url'=>array('index')),
-	array('label'=>'Create Photo', 'url'=>array('create')),
-	array('label'=>'Update Photo', 'url'=>array('update', 'id'=>$model->id)),
-	array('label'=>'Delete Photo', 'url'=>'#', 'linkOptions'=>array('submit'=>array('delete','id'=>$model->id),'confirm'=>'Are you sure you want to delete this item?')),
-	array('label'=>'Manage Photo', 'url'=>array('admin')),
+    array('label'=>'Отметить на фото', 'url'=>array('note', 'id'=>$model->id), 'visible'=>Photo::model()->iOwner($model->profile_id)),
+	array('label'=>$model->album->album_name, 'url'=>array('albums/view', 'id'=>$model->album_id)),
+	array('label'=>'Добавить фото в альбом', 'url'=>array('albums/upload', 'id'=>$model->album_id), 'visible'=>Photo::model()->iOwner($model->profile_id)),
+	array('label'=>'Изменить название', 'url'=>array('update', 'id'=>$model->id), 'visible'=>Photo::model()->iOwner($model->profile_id)),
+	array('label'=>'Удалить фото', 'url'=>'#', 'linkOptions'=>array('submit'=>array('delete','id'=>$model->id),'confirm'=>'Are you sure you want to delete this item?')),
 );
 ?>
 
-<h1>View Photo #<?php echo $model->id; ?></h1>
+<h1>View Photo <?php echo $model->photo_name; ?></h1>
 
-<?php $this->widget('zii.widgets.CDetailView', array(
-	'data'=>$model,
-	'attributes'=>array(
-		'id',
-		'extension',
-		'photo_name',
-		'type',
-		'profile_id',
-		'album_id',
-	),
-)); ?>
+<?php $photo_url = $this->createAbsoluteUrl('/')."/albums/".$model->profile_id."/".$model->id.".".$model->extension; ?>
+<img src="<?php echo $photo_url; ?>" />
+

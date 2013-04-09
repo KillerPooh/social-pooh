@@ -18,7 +18,7 @@
        if($count>5){$count=5;}
        for($i=0; $i<$count; $i++){
            $mini_photo_url = $this->createAbsoluteUrl('/')."/albums/".$data->profile_id."/mini/".$photos[$i]->id.".".$photos[$i]->extension;
-           $open_url = $this->createAbsoluteUrl('photos/view',array('id'=>$photos[$i]->id));
+           $open_url = $this->createAbsoluteUrl('photo/view',array('id'=>$photos[$i]->id));
            echo "<a style='margin:5px;' href='".$open_url."'><img src='".$mini_photo_url."' /></a>";
        }
     } else {
