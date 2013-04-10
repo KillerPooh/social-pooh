@@ -20,7 +20,6 @@ $this->menu=array(
     'dataProvider'=>$profile->search(),
     'filter'=>$profile,
     'columns'=>array(
-        'id',
         'first_name',
         'second_name',
         'third_name',

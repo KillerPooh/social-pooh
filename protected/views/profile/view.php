@@ -20,8 +20,12 @@ $this->breadcrumbs=array(
     </tr>
     <?php } ?>
     <tr>
-        <td>photo</td>
-        <td>
+        <td width="200px">
+            <?php $extension = Photo::model()->findByPk($model->profile_photo);
+            $photo_url = $this->createAbsoluteUrl('/')."/albums/".$model->id."/".$model->profile_photo.".".$extension->extension; ?>
+            <img style="max-width: 200px; height: auto;" src="<?php echo $photo_url; ?>" />
+        </td>
+        <td style="vertical-align: top;">
             <?php echo $model->second_name; ?>
             <?php if(isset($model->fourth_name) AND !empty($model->fourth_name)){echo "(".$model->fourth_name.")";} ?>
             <?php echo $model->first_name; ?>

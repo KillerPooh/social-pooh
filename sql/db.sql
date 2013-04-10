@@ -3,7 +3,7 @@
 -- Server version                :5.5.25 - MySQL Community Server (GPL)
 -- Server OS                     :Win32
 -- HeidiSQL Версия               :7.0.0.4244
--- Создано                       :2013-04-09 17:05:45
+-- Создано                       :2013-04-10 15:14:58
 -- --------------------------------------------------------
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
@@ -28,7 +28,7 @@ CREATE TABLE IF NOT EXISTS `albums` (
 -- Dumping data for table social-pooh.albums: ~2 rows (approximately)
 /*!40000 ALTER TABLE `albums` DISABLE KEYS */;
 INSERT INTO `albums` (`id`, `profile_id`, `album_name`, `last_update`) VALUES
-	(6, 1, 'Первый альбом', '2013.04.09 15:40:15'),
+	(6, 1, 'Первый альбом', '2013.04.10 15:14:10'),
 	(7, 1, 'Второй альбом', '2013.04.09 13:50:11');
 /*!40000 ALTER TABLE `albums` ENABLE KEYS */;
 
@@ -178,7 +178,8 @@ INSERT INTO `photo` (`id`, `extension`, `photo_name`, `type`, `profile_id`, `alb
 	(27, 'png', 'тест 3', 1, 1, 6),
 	(28, 'png', 'тест 4', 1, 1, 6),
 	(29, 'png', 'тест 5', 1, 1, 7),
-	(30, 'jpg', 'тест 1920х1080', 1, 1, 6);
+	(30, 'jpg', 'тест 1920х1080', 1, 1, 6),
+	(31, 'png', 'вертикальная фотка', 1, 1, 6);
 /*!40000 ALTER TABLE `photo` ENABLE KEYS */;
 
 
@@ -231,7 +232,7 @@ CREATE TABLE IF NOT EXISTS `profile` (
 -- Dumping data for table social-pooh.profile: ~2 rows (approximately)
 /*!40000 ALTER TABLE `profile` DISABLE KEYS */;
 INSERT INTO `profile` (`id`, `first_name`, `second_name`, `third_name`, `fourth_name`, `group_id`, `city`, `profession`, `profile_photo`, `icq`, `skype`, `mobile`, `about`) VALUES
-	(1, 'Имя', 'Фамилия', 'Отчество', 'Девичья фамилия', 1, 'Москва', 'Программист', 0, '123456', 'skype', '+79998887766', 'О себе, куча текста\r\nаще\r\n\r\nтест'),
+	(1, 'Имя', 'Фамилия', 'Отчество', 'Девичья фамилия', 1, 'Москва', 'Программист', 31, '123456', 'skype', '+79998887766', 'О себе, куча текста\r\nаще\r\n\r\nтест'),
 	(4, 'test', 'test', 'test', NULL, 1, 'test', NULL, 0, NULL, NULL, NULL, NULL);
 /*!40000 ALTER TABLE `profile` ENABLE KEYS */;
 

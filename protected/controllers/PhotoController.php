@@ -23,7 +23,6 @@ class PhotoController extends Controller
         $photo = Photo::model()->findByPk($id);
         $profile=new Profile('search');
         $profile->unsetAttributes();
-        $profile->temp = $photo->id;
         if(isset($_GET['Profile']))
             $profile->attributes=$_GET['Profile'];
 
@@ -31,6 +30,16 @@ class PhotoController extends Controller
             'photo'=>$photo,
             'profile'=>$profile,
         ));
+    }
+
+    public function actionSet($id)
+    {
+        $photo = Photo::model()->findByPk($id);
+        $user = Users::model()->findByPk(Yii::app()->user->id);
+        $user->profile->profile_photo = $photo->id;
+        $user->profile->save();
+        Yii::app()->user->setFlash('message', 'Фотография установлена как основная');
+        $this->redirect(array('view','id'=>$photo->id));
     }
 
 	/**
