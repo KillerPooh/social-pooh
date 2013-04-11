@@ -59,8 +59,10 @@ class PhotoController extends Controller
 	 */
 	public function actionView($id)
 	{
+        $notes = Note::model()->findAllByAttributes(array('photo_id'=>(int)$id));
 		$this->render('view',array(
 			'model'=>$this->loadModel($id),
+            'notes'=>$notes,
 		));
 	}
 

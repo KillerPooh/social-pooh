@@ -26,3 +26,10 @@ $this->menu=array(
 
 <?php $photo_url = $this->createAbsoluteUrl('/')."/albums/".$model->profile_id."/".$model->id.".".$model->extension; ?>
 <img style="max-width: 730px; height: auto;" src="<?php echo $photo_url; ?>" />
+
+<br />
+На фото отмечен(ы):
+<?php for($i=0, $count=count($notes); $i<$count; $i++){
+    $profile_url = $this->createAbsoluteUrl('profile/view', array('id'=>$notes[$i]->profile->id));
+    echo "<a href='".$profile_url."'>".$notes[$i]->profile->first_name." ".$notes[$i]->profile->second_name."</a>&nbsp;&nbsp;&nbsp;";
+} ?>

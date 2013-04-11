@@ -2,15 +2,11 @@
 /* @var $this PhotoController */
 /* @var $photo Photo */
 
+$this->layout = '//layouts/column1';
 $this->breadcrumbs=array(
-	'Photos'=>array('index'),
+    $photo->album->album_name=>array('albums/view', 'id'=>$photo->album->id),
     $photo->photo_name=>array('view', 'id'=>$photo->id),
 	'Отметить на фото',
-);
-
-$this->menu=array(
-	array('label'=>'List Photo', 'url'=>array('index')),
-	array('label'=>'Manage Photo', 'url'=>array('admin')),
 );
 ?>
 
