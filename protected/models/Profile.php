@@ -129,6 +129,14 @@ class Profile extends CActiveRecord
 		$criteria->compare('mobile',$this->mobile,true);
 		$criteria->compare('about',$this->about,true);
 
+        if(Yii::app()->controller->action->id=='note'){
+            $notes = Note::model()->findAllByAttributes(array('photo_id'=>(int)$_GET['id']));
+            for($i=0, $count=count($notes); $i<$count; $i++){
+                $criteria->addCondition("id != '".$notes[$i]['profile_id']."'");
+            }
+        }
+
+
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
 		));

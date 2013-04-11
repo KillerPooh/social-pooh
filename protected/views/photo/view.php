@@ -9,7 +9,7 @@ $this->breadcrumbs=array(
 
 $this->menu=array(
     array('label'=>'Установить как основную', 'url'=>array('set', 'id'=>$model->id), 'visible'=>Photo::model()->iOwner($model->profile_id)),
-    array('label'=>'Отметить на фото', 'url'=>array('note', 'id'=>$model->id), 'visible'=>Photo::model()->iOwner($model->profile_id)),
+    array('label'=>'Отметить на фото', 'url'=>array('note', 'id'=>$model->id)),
 	array('label'=>$model->album->album_name, 'url'=>array('albums/view', 'id'=>$model->album_id)),
 	array('label'=>'Добавить фото в альбом', 'url'=>array('albums/upload', 'id'=>$model->album_id), 'visible'=>Photo::model()->iOwner($model->profile_id)),
 	array('label'=>'Изменить название', 'url'=>array('update', 'id'=>$model->id), 'visible'=>Photo::model()->iOwner($model->profile_id)),

@@ -26,6 +26,17 @@ class PhotoController extends Controller
         if(isset($_GET['Profile']))
             $profile->attributes=$_GET['Profile'];
 
+        if(isset($_GET['profile'])){
+            $profile_id = (int)$_GET['profile'];
+            $note = Note::model()->findByAttributes(array('profile_id'=>$profile_id, 'photo_id'=>$id));
+            if(!isset($note) AND empty($note->id)){
+                $note = new Note;
+                $note->photo_id = $id;
+                $note->profile_id = $profile_id;
+                $note->save();
+            }
+        }
+
         $this->render('note',array(
             'photo'=>$photo,
             'profile'=>$profile,

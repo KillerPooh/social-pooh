@@ -3,7 +3,7 @@
 -- Server version                :5.5.25 - MySQL Community Server (GPL)
 -- Server OS                     :Win32
 -- HeidiSQL Версия               :7.0.0.4244
--- Создано                       :2013-04-10 15:14:58
+-- Создано                       :2013-04-11 18:02:02
 -- --------------------------------------------------------
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
@@ -155,6 +155,25 @@ INSERT INTO `news` (`id`, `user_id`, `title`, `content`, `views`, `data`) VALUES
 /*!40000 ALTER TABLE `news` ENABLE KEYS */;
 
 
+-- Dumping structure for table social-pooh.note
+CREATE TABLE IF NOT EXISTS `note` (
+  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `profile_id` int(10) DEFAULT NULL,
+  `photo_id` int(10) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `FK_note_profile` (`profile_id`),
+  KEY `FK_note_photo` (`photo_id`),
+  CONSTRAINT `FK_note_profile` FOREIGN KEY (`profile_id`) REFERENCES `profile` (`id`),
+  CONSTRAINT `FK_note_photo` FOREIGN KEY (`photo_id`) REFERENCES `photo` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+
+-- Dumping data for table social-pooh.note: ~0 rows (approximately)
+/*!40000 ALTER TABLE `note` DISABLE KEYS */;
+INSERT INTO `note` (`id`, `profile_id`, `photo_id`) VALUES
+	(5, 4, 31);
+/*!40000 ALTER TABLE `note` ENABLE KEYS */;
+
+
 -- Dumping structure for table social-pooh.photo
 CREATE TABLE IF NOT EXISTS `photo` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
@@ -168,9 +187,9 @@ CREATE TABLE IF NOT EXISTS `photo` (
   KEY `FK_photo_albums` (`album_id`),
   CONSTRAINT `FK_photo_albums` FOREIGN KEY (`album_id`) REFERENCES `albums` (`id`),
   CONSTRAINT `FK_photo_profile` FOREIGN KEY (`profile_id`) REFERENCES `profile` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=32 DEFAULT CHARSET=utf8;
 
--- Dumping data for table social-pooh.photo: ~6 rows (approximately)
+-- Dumping data for table social-pooh.photo: ~7 rows (approximately)
 /*!40000 ALTER TABLE `photo` DISABLE KEYS */;
 INSERT INTO `photo` (`id`, `extension`, `photo_name`, `type`, `profile_id`, `album_id`) VALUES
 	(24, 'png', 'тест уменьшения', 1, 1, 6),
