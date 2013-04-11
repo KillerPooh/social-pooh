@@ -42,6 +42,26 @@ $this->breadcrumbs=array(
             <?php if(isset($model->mobile) AND !empty($model->mobile)){echo "Mobile: ".$model->mobile;} ?>
             <br />
             <?php if(isset($model->about) AND !empty($model->about)){echo $model->about;} ?>
+            <br />
+            <br />
+            <br />
+            <?php
+            $count=count($last_photos);
+            if($count!='0'){
+                $profile_albums = $this->createAbsoluteUrl('albums/profile', array('id'=>$model->id));
+                echo "<a href='".$profile_albums."'>Все альбомы</a><br>";
+            }
+            for($i=0; $i<$count; $i++){
+                if($i=='5'){
+                    echo "<div style='display:none;'>";
+                }
+                $mini_photo_url = $this->createAbsoluteUrl('/')."/albums/".$model->id."/mini/".$last_photos[$i]->id.".".$last_photos[$i]->extension;
+                $open_url = $this->createAbsoluteUrl('/')."/albums/".$model->id."/".$last_photos[$i]->id.".".$last_photos[$i]->extension;
+                echo "<a class='highslide' href='".$open_url."' onclick='return hs.expand(this)'><img src='".$mini_photo_url."' /></a>";
+                if($i==$count-1){
+                    echo "</div>";
+                }
+            } ?>
         </td>
     </tr>
 </table>

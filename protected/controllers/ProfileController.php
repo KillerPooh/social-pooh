@@ -22,9 +22,10 @@ class ProfileController extends Controller
 	public function actionView($id)
 	{
         $this->layout = '//layouts/column1';
-
+        $last_photos = Photo::model()->findAllByAttributes(array('profile_id'=>(int)$id), array('order'=>'id DESC'));
 		$this->render('view',array(
 			'model'=>$this->loadModel($id),
+            'last_photos'=>$last_photos,
 		));
 	}
 
