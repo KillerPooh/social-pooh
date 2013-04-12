@@ -48,6 +48,8 @@ or <b>=</b>) at the beginning of each of your search values to specify how the c
 		'id',
 		'profile_id',
 		'album_name',
+		'last_update',
+		'type',
 		array(
 			'class'=>'CButtonColumn',
 		),

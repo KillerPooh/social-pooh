@@ -3,7 +3,7 @@
 -- Server version                :5.5.25 - MySQL Community Server (GPL)
 -- Server OS                     :Win32
 -- HeidiSQL Версия               :7.0.0.4244
--- Создано                       :2013-04-12 14:40:32
+-- Создано                       :2013-04-13 00:20:59
 -- --------------------------------------------------------
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
@@ -22,14 +22,15 @@ CREATE TABLE IF NOT EXISTS `albums` (
   `profile_id` int(10) DEFAULT NULL,
   `album_name` varchar(35) NOT NULL,
   `last_update` varchar(20) DEFAULT NULL,
+  `type` varchar(1) NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
 
 -- Dumping data for table social-pooh.albums: ~2 rows (approximately)
 /*!40000 ALTER TABLE `albums` DISABLE KEYS */;
-INSERT INTO `albums` (`id`, `profile_id`, `album_name`, `last_update`) VALUES
-	(6, 1, 'Первый альбом', '2013.04.10 15:14:10'),
-	(7, 1, 'Второй альбом', '2013.04.09 13:50:11');
+INSERT INTO `albums` (`id`, `profile_id`, `album_name`, `last_update`, `type`) VALUES
+	(6, 1, 'Первый альбом', '2013.04.10 15:14:10', '2'),
+	(7, 1, 'Второй альбом', '2013.04.09 13:50:11', '1');
 /*!40000 ALTER TABLE `albums` ENABLE KEYS */;
 
 
@@ -165,7 +166,7 @@ CREATE TABLE IF NOT EXISTS `note` (
   KEY `FK_note_photo` (`photo_id`),
   CONSTRAINT `FK_note_profile` FOREIGN KEY (`profile_id`) REFERENCES `profile` (`id`),
   CONSTRAINT `FK_note_photo` FOREIGN KEY (`photo_id`) REFERENCES `photo` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
 
 -- Dumping data for table social-pooh.note: ~2 rows (approximately)
 /*!40000 ALTER TABLE `note` DISABLE KEYS */;

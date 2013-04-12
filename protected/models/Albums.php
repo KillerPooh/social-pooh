@@ -8,6 +8,7 @@
  * @property integer $profile_id
  * @property string $album_name
  * @property string $last_update
+ * @property string $type
  *
  * The followings are the available model relations:
  * @property Photo[] $photos
@@ -44,9 +45,10 @@ class Albums extends CActiveRecord
 			array('profile_id', 'numerical', 'integerOnly'=>true),
 			array('album_name', 'length', 'max'=>35),
 			array('last_update', 'length', 'max'=>20),
+			array('type', 'length', 'max'=>1),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, profile_id, album_name, last_update', 'safe', 'on'=>'search'),
+			array('id, profile_id, album_name, last_update, type', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -72,6 +74,7 @@ class Albums extends CActiveRecord
 			'profile_id' => 'Profile',
 			'album_name' => 'Album Name',
 			'last_update' => 'Last Update',
+			'type' => 'Type',
 		);
 	}
 
@@ -90,6 +93,7 @@ class Albums extends CActiveRecord
 		$criteria->compare('profile_id',$this->profile_id);
 		$criteria->compare('album_name',$this->album_name,true);
 		$criteria->compare('last_update',$this->last_update,true);
+		$criteria->compare('type',$this->type,true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
