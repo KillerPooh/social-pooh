@@ -22,6 +22,11 @@ $isAdmin = !Yii::app()->user->isGuest && Users::model()->iAdmin();
     </div>
     <div class="content">
         <?php
+            $user = Users::model()->findByPk($data->author->siteid);
+            $photo = Photo::model()->findByPk($user->profile->profile_photo);
+            $mini_photo_url = $this->createAbsoluteUrl('/')."/albums/".$user->profile_id."/mini/".$photo->id.".".$photo->extension;
+            echo "<img src='".$mini_photo_url."' />";
+
             $this->beginWidget('CMarkdown', array('purifyOutput'=>true));
                 echo $data->content;
             $this->endWidget();

@@ -3,7 +3,7 @@
 -- Server version                :5.5.25 - MySQL Community Server (GPL)
 -- Server OS                     :Win32
 -- HeidiSQL Версия               :7.0.0.4244
--- Создано                       :2013-04-12 14:28:59
+-- Создано                       :2013-04-12 14:40:32
 -- --------------------------------------------------------
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
@@ -114,7 +114,7 @@ CREATE TABLE IF NOT EXISTS `forumuser` (
 -- Dumping data for table social-pooh.forumuser: ~1 rows (approximately)
 /*!40000 ALTER TABLE `forumuser` DISABLE KEYS */;
 INSERT INTO `forumuser` (`id`, `siteid`, `name`, `firstseen`, `lastseen`, `signature`) VALUES
-	(1, '1', 'test', '1365149307', '1365149307', NULL);
+	(1, '1', 'test', '1365149307', '1365762630', NULL);
 /*!40000 ALTER TABLE `forumuser` ENABLE KEYS */;
 
 
@@ -167,7 +167,7 @@ CREATE TABLE IF NOT EXISTS `note` (
   CONSTRAINT `FK_note_photo` FOREIGN KEY (`photo_id`) REFERENCES `photo` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 
--- Dumping data for table social-pooh.note: ~1 rows (approximately)
+-- Dumping data for table social-pooh.note: ~2 rows (approximately)
 /*!40000 ALTER TABLE `note` DISABLE KEYS */;
 INSERT INTO `note` (`id`, `profile_id`, `photo_id`) VALUES
 	(5, 4, 31),
@@ -288,7 +288,7 @@ CREATE TABLE IF NOT EXISTS `thread` (
 -- Dumping data for table social-pooh.thread: ~1 rows (approximately)
 /*!40000 ALTER TABLE `thread` DISABLE KEYS */;
 INSERT INTO `thread` (`id`, `forum_id`, `subject`, `is_sticky`, `is_locked`, `view_count`, `created`) VALUES
-	(1, 2, 'test thread', 0, 0, 5, 1365150034);
+	(1, 2, 'test thread', 0, 0, 13, 1365150034);
 /*!40000 ALTER TABLE `thread` ENABLE KEYS */;
 
 
