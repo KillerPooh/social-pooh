@@ -19,6 +19,19 @@ class AlbumsController extends Controller
 		));
 	}
 
+    public function actionProfile($id)
+    {
+        $this->layout = '//layouts/column1';
+        $dataProvider=new CActiveDataProvider('Albums', array(
+            'criteria'=>array(
+                'condition'=>'profile_id='.(int)$id,
+            )
+        ));
+        $this->render('albums',array(
+            'dataProvider'=>$dataProvider,
+        ));
+    }
+
     // done
     public function actionUpload($id)
     {

@@ -3,7 +3,7 @@
 -- Server version                :5.5.25 - MySQL Community Server (GPL)
 -- Server OS                     :Win32
 -- HeidiSQL Версия               :7.0.0.4244
--- Создано                       :2013-04-11 18:02:02
+-- Создано                       :2013-04-12 14:28:59
 -- --------------------------------------------------------
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
@@ -167,10 +167,11 @@ CREATE TABLE IF NOT EXISTS `note` (
   CONSTRAINT `FK_note_photo` FOREIGN KEY (`photo_id`) REFERENCES `photo` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 
--- Dumping data for table social-pooh.note: ~0 rows (approximately)
+-- Dumping data for table social-pooh.note: ~1 rows (approximately)
 /*!40000 ALTER TABLE `note` DISABLE KEYS */;
 INSERT INTO `note` (`id`, `profile_id`, `photo_id`) VALUES
-	(5, 4, 31);
+	(5, 4, 31),
+	(6, 1, 31);
 /*!40000 ALTER TABLE `note` ENABLE KEYS */;
 
 

@@ -20,7 +20,7 @@ $this->breadcrumbs=array(
     </tr>
     <?php } ?>
     <tr>
-        <td width="200px">
+        <td width="200px" style="vertical-align: top;">
             <?php $extension = Photo::model()->findByPk($model->profile_photo);
             $photo_url = $this->createAbsoluteUrl('/')."/albums/".$model->id."/".$model->profile_photo.".".$extension->extension; ?>
             <img style="max-width: 200px; height: auto;" src="<?php echo $photo_url; ?>" />
@@ -57,7 +57,23 @@ $this->breadcrumbs=array(
                 }
                 $mini_photo_url = $this->createAbsoluteUrl('/')."/albums/".$model->id."/mini/".$last_photos[$i]->id.".".$last_photos[$i]->extension;
                 $open_url = $this->createAbsoluteUrl('/')."/albums/".$model->id."/".$last_photos[$i]->id.".".$last_photos[$i]->extension;
-                echo "<a class='highslide' href='".$open_url."' onclick='return hs.expand(this)'><img src='".$mini_photo_url."' /></a>";
+                echo "<a class='highslide' href='".$open_url."' onclick='return hs.expand(this, { slideshowGroup: 1 } )'><img src='".$mini_photo_url."' /></a>";
+                if($i==$count-1){
+                    echo "</div>";
+                }
+            } ?>
+            <br />
+            Отмечен на:
+            <br />
+            <?php
+            $count=count($last_notes);
+            for($i=0; $i<$count; $i++){
+                if($i=='5'){
+                    echo "<div style='display:none;'>";
+                }
+                $mini_photo_url = $this->createAbsoluteUrl('/')."/albums/".$model->id."/mini/".$last_notes[$i]->photo->id.".".$last_notes[$i]->photo->extension;
+                $open_url = $this->createAbsoluteUrl('/')."/albums/".$model->id."/".$last_notes[$i]->photo->id.".".$last_notes[$i]->photo->extension;
+                echo "<a class='highslide' href='".$open_url."' onclick='return hs.expand(this, { slideshowGroup: 2 } )'><img src='".$mini_photo_url."' /></a>";
                 if($i==$count-1){
                     echo "</div>";
                 }
