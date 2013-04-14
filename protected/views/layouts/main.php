@@ -67,7 +67,9 @@
 		<?php if(!Yii::app()->user->isGuest){
             $user = Users::model()->findByPk(Yii::app()->user->id);
             $name = $user->profile->first_name." ".$user->profile->second_name;
+            $profile_id_main = $user->profile->id;
         } else {
+            $profile_id_main='';
             $name='';
         }
         $this->widget('zii.widgets.CMenu',array(
@@ -79,7 +81,7 @@
 				array('label'=>'О нас', 'url'=>array('/site/page', 'view'=>'about')),
 				array('label'=>'Обратная связь', 'url'=>array('/site/contact')),
 				array('label'=>'Войти', 'url'=>array('/site/login'), 'visible'=>Yii::app()->user->isGuest),
-                array('label'=>'Моя страничка', 'url'=>array('profile/view', 'id'=>$user->profile->id), 'visible'=>!Yii::app()->user->isGuest),
+                array('label'=>'Моя страничка', 'url'=>array('profile/view', 'id'=>$profile_id_main), 'visible'=>!Yii::app()->user->isGuest),
                 array('label'=>'Ред.Профиль', 'url'=>array('/site/profile'), 'visible'=>!Yii::app()->user->isGuest),
 				array('label'=>'Выйти ('.$name.')', 'url'=>array('/site/logout'), 'visible'=>!Yii::app()->user->isGuest),
                 array('label'=>'Админка', 'url'=>array('/admin/index'), 'visible'=>Users::model()->iAdmin()),
