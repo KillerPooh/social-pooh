@@ -84,9 +84,23 @@ class NewsController extends Controller
 	 */
 	public function actionIndex()
 	{
-		$dataProvider=new CActiveDataProvider('News');
+		$dataProvider=new CActiveDataProvider('News',array(
+            'pagination'=>false,
+            'criteria'=>array(
+                'limit'=>'1',
+                'order'=>'id DESC',
+            )));
+        $id = $dataProvider->data[0]->id;
+        $preview = new CActiveDataProvider('News', array(
+            'pagination'=>false,
+            'criteria'=>array(
+                'limit'=>'4',
+                'order'=>'id DESC',
+                'condition'=>'id!='.$id,
+            )));
 		$this->render('index',array(
 			'dataProvider'=>$dataProvider,
+            'preview'=>$preview,
 		));
 	}
 
