@@ -5,7 +5,7 @@
 <?php
 $this->pageTitle=Yii::app()->name;
 ?>
-
+    <h1 class="uppercase"><a href="<?php echo $this->createAbsoluteUrl('news/admin'); ?>">Управление новостями</a></h1>
     <h1 class="uppercase"><a href="<?php echo $this->createAbsoluteUrl('groups/admin'); ?>">Управление группами</a></h1>
     <h1 class="uppercase"><a href="<?php echo $this->createAbsoluteUrl('users/admin'); ?>">Управление пользователями</a></h1>
     <h1 class="uppercase"><a href="<?php echo $this->createAbsoluteUrl('gallery/admin'); ?>">Управление альбомами</a> </h1>

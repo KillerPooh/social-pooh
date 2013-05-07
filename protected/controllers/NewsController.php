@@ -98,9 +98,18 @@ class NewsController extends Controller
                 'order'=>'id DESC',
                 'condition'=>'id!='.$id,
             )));
+
+        $random = Yii::app()->db->createCommand()
+            ->select('id, extension, photo_name, profile_id')
+            ->from('photo')
+            ->order('RAND()')
+            ->limit('6')
+            ->queryAll();
+
 		$this->render('index',array(
 			'dataProvider'=>$dataProvider,
             'preview'=>$preview,
+            'random'=>$random,
 		));
 	}
 

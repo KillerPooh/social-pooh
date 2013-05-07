@@ -101,10 +101,8 @@ if (!Yii::app()->user->isGuest) {
         </a>
 
         <div id="mail">
-            <a href="#" id="send-mail"><img src="<?php echo Yii::app()->request->baseUrl; ?>/img/send-mail.png"
-                                            alt="Написать нам"/></a>
-            <a href="<?php echo Yii::app()->createAbsoluteUrl('/site/rss'); ?>" id="subscribe"><img
-                    src="<?php echo Yii::app()->request->baseUrl; ?>/img/subscribe.png" alt="Подписаться на рассылку"/></a>
+            <a href="<?php echo Yii::app()->createAbsoluteUrl('/site/contact'); ?>" id="send-mail"><img src="<?php echo Yii::app()->request->baseUrl; ?>/img/send-mail.png" alt="Написать нам"/></a>
+            <a href="<?php echo Yii::app()->createAbsoluteUrl('/site/rss'); ?>" id="subscribe"><img src="<?php echo Yii::app()->request->baseUrl; ?>/img/subscribe.png" alt="Подписаться на рассылку"/></a>
         </div>
         <div id="social">
             <?php if (Yii::app()->user->isGuest) { ?>
