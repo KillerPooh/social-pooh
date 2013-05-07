@@ -67,8 +67,8 @@ $this->breadcrumbs=array(
                 if($i=='5'){
                     echo "<div style='display:none;'>";
                 }
-                $mini_photo_url = $this->createAbsoluteUrl('/')."/albums/".$model->id."/mini/".$last_notes[$i]->photo->id.".".$last_notes[$i]->photo->extension;
-                $open_url = $this->createAbsoluteUrl('/')."/albums/".$model->id."/".$last_notes[$i]->photo->id.".".$last_notes[$i]->photo->extension;
+                $mini_photo_url = $this->createAbsoluteUrl('/')."/albums/".$last_notes[$i]->photo->profile_id."/mini/".$last_notes[$i]->photo->id.".".$last_notes[$i]->photo->extension;
+                $open_url = $this->createAbsoluteUrl('/')."/albums/".$last_notes[$i]->photo->profile_id."/".$last_notes[$i]->photo->id.".".$last_notes[$i]->photo->extension;
                 echo "<a class='highslide' href='".$open_url."' onclick='return hs.expand(this, { slideshowGroup: 2 } )'><img src='".$mini_photo_url."' /></a>";
                 if($i==$count-1){
                     echo "</div>";
