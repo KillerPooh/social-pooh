@@ -31,6 +31,16 @@ class SiteController extends Controller
 		}
 	}
 
+    public function actionRss()
+    {
+        $this->layout = ' ';
+        $news = News::model()->findAll('id<>0 ORDER BY id DESC');
+
+        $this->render('rss',array(
+            'news'=>$news,
+        ));
+    }
+
 	public function actionContact()
 	{
 		$model=new ContactForm;

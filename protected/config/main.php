@@ -3,6 +3,7 @@ return array(
 	'basePath'=>dirname(__FILE__).DIRECTORY_SEPARATOR.'..',
 	'name'=>'Social-pooh',
     'theme' => 'pmf',
+    'language' => 'ru',
 
 	'preload'=>array('log'),
 
@@ -82,6 +83,7 @@ return array(
 
 	'params'=>array(
 		'adminEmail'=>'webmaster@example.com',
+        'description' => 'rss description',
         'rights'=>array(
             'test',
         )
