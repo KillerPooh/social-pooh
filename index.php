@@ -10,3 +10,10 @@ defined('YII_TRACE_LEVEL') or define('YII_TRACE_LEVEL',3);
 
 require_once($yii);
 Yii::createWebApplication($config)->run();
+
+/*
+ * возможность из админки рассылки всем (или по выбору) писем на e-mail
+ * смену пароля в профиле
+ * восстановление пароля через емайл
+ * для новостей решили тоже делать миниатюру
+ */

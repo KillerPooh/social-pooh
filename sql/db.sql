@@ -3,7 +3,7 @@
 -- Server version                :5.5.25 - MySQL Community Server (GPL)
 -- Server OS                     :Win32
 -- HeidiSQL Версия               :7.0.0.4244
--- Создано                       :2013-04-13 00:20:59
+-- Создано                       :2013-05-08 21:00:02
 -- --------------------------------------------------------
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
@@ -24,13 +24,14 @@ CREATE TABLE IF NOT EXISTS `albums` (
   `last_update` varchar(20) DEFAULT NULL,
   `type` varchar(1) NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
 
--- Dumping data for table social-pooh.albums: ~2 rows (approximately)
+-- Dumping data for table social-pooh.albums: ~3 rows (approximately)
 /*!40000 ALTER TABLE `albums` DISABLE KEYS */;
 INSERT INTO `albums` (`id`, `profile_id`, `album_name`, `last_update`, `type`) VALUES
-	(6, 1, 'Первый альбом', '2013.04.10 15:14:10', '2'),
-	(7, 1, 'Второй альбом', '2013.04.09 13:50:11', '1');
+	(6, 1, 'Первый альбом', '2013.05.08 16:59:37', '2'),
+	(7, 1, 'Второй альбом', '2013.04.09 13:50:11', '1'),
+	(8, 5, 'test', '2013.05.08 16:45:49', '1');
 /*!40000 ALTER TABLE `albums` ENABLE KEYS */;
 
 
@@ -150,9 +151,9 @@ CREATE TABLE IF NOT EXISTS `news` (
 -- Dumping data for table social-pooh.news: ~3 rows (approximately)
 /*!40000 ALTER TABLE `news` DISABLE KEYS */;
 INSERT INTO `news` (`id`, `user_id`, `title`, `content`, `views`, `data`) VALUES
-	(1, 1, 'тестовая новость', 'Проверка новости\r\nтут <b>жирный</b> текст <img src="http://gcp2.ru/images/icons/3cceb241a4d43a34106634923ec6b483.png" />\r\nтут продолжение', 15, '2013-04-03 20:19'),
-	(2, 1, 'вторая тестовая новость', 'текст новости\r\nтекст                  текст\r\n\r\nтекст\r\n\r\n\r\n\r\nтекст', 1, '2013.04.03 20:21:54'),
-	(3, 1, 'тут <b>не пашет</b> html', 'а тут <u>пашет</u>\r\nтест тест тест тест<podkat>\r\nтест тест тест тест\r\n\r\nтест тест тест тест', 3, '2013.04.03 20:30:41');
+	(1, 1, 'тестовая новость', 'Проверка новости\r\nтут <b>жирный</b> текст <img src="http://gcp2.ru/images/icons/3cceb241a4d43a34106634923ec6b483.png" />\r\nтут продолжение', 17, '2013-04-03 20:19'),
+	(2, 1, 'вторая тестовая новость', 'текст новости\r\nтекст                  текст\r\n\r\nтекст\r\n\r\n\r\n\r\nтекст', 2, '2013.04.03 20:21:54'),
+	(3, 1, 'тут <b>не пашет</b> html', 'а тут <u>пашет</u>\r\nтест тест тест тест<podkat>\r\nтест тест тест тест\r\n\r\nтест тест тест тест', 5, '2013.04.03 20:30:41');
 /*!40000 ALTER TABLE `news` ENABLE KEYS */;
 
 
@@ -162,17 +163,17 @@ CREATE TABLE IF NOT EXISTS `note` (
   `profile_id` int(10) DEFAULT NULL,
   `photo_id` int(10) DEFAULT NULL,
   PRIMARY KEY (`id`),
-  KEY `FK_note_profile` (`profile_id`),
   KEY `FK_note_photo` (`photo_id`),
-  CONSTRAINT `FK_note_profile` FOREIGN KEY (`profile_id`) REFERENCES `profile` (`id`),
-  CONSTRAINT `FK_note_photo` FOREIGN KEY (`photo_id`) REFERENCES `photo` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
+  KEY `FK_note_profile` (`profile_id`),
+  CONSTRAINT `FK_note_photo` FOREIGN KEY (`photo_id`) REFERENCES `photo` (`id`),
+  CONSTRAINT `FK_note_profile` FOREIGN KEY (`profile_id`) REFERENCES `profile` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
 
 -- Dumping data for table social-pooh.note: ~2 rows (approximately)
 /*!40000 ALTER TABLE `note` DISABLE KEYS */;
 INSERT INTO `note` (`id`, `profile_id`, `photo_id`) VALUES
-	(5, 4, 31),
-	(6, 1, 31);
+	(7, 1, 43),
+	(8, 5, 43);
 /*!40000 ALTER TABLE `note` ENABLE KEYS */;
 
 
@@ -189,18 +190,21 @@ CREATE TABLE IF NOT EXISTS `photo` (
   KEY `FK_photo_albums` (`album_id`),
   CONSTRAINT `FK_photo_albums` FOREIGN KEY (`album_id`) REFERENCES `albums` (`id`),
   CONSTRAINT `FK_photo_profile` FOREIGN KEY (`profile_id`) REFERENCES `profile` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=32 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=46 DEFAULT CHARSET=utf8;
 
--- Dumping data for table social-pooh.photo: ~7 rows (approximately)
+-- Dumping data for table social-pooh.photo: ~10 rows (approximately)
 /*!40000 ALTER TABLE `photo` DISABLE KEYS */;
 INSERT INTO `photo` (`id`, `extension`, `photo_name`, `type`, `profile_id`, `album_id`) VALUES
-	(24, 'png', 'тест уменьшения', 1, 1, 6),
-	(26, 'png', 'тест 2', 1, 1, 6),
-	(27, 'png', 'тест 3', 1, 1, 6),
-	(28, 'png', 'тест 4', 1, 1, 6),
-	(29, 'png', 'тест 5', 1, 1, 7),
-	(30, 'jpg', 'тест 1920х1080', 1, 1, 6),
-	(31, 'png', 'вертикальная фотка', 1, 1, 6);
+	(36, 'jpg', '1', 1, 5, 8),
+	(37, 'jpg', '2', 1, 5, 8),
+	(38, 'jpg', '3', 1, 5, 8),
+	(39, 'jpg', '4', 1, 5, 8),
+	(40, 'png', '5', 1, 5, 8),
+	(41, 'jpg', '7', 1, 5, 8),
+	(42, 'jpg', '8', 1, 5, 8),
+	(43, 'jpg', '9', 1, 5, 8),
+	(44, 'jpg', '10', 1, 5, 6),
+	(45, 'jpg', '11', 1, 5, 6);
 /*!40000 ALTER TABLE `photo` ENABLE KEYS */;
 
 
@@ -248,13 +252,14 @@ CREATE TABLE IF NOT EXISTS `profile` (
   PRIMARY KEY (`id`),
   KEY `FK_profile_groups` (`group_id`),
   CONSTRAINT `FK_profile_groups` FOREIGN KEY (`group_id`) REFERENCES `groups` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 
--- Dumping data for table social-pooh.profile: ~2 rows (approximately)
+-- Dumping data for table social-pooh.profile: ~3 rows (approximately)
 /*!40000 ALTER TABLE `profile` DISABLE KEYS */;
 INSERT INTO `profile` (`id`, `first_name`, `second_name`, `third_name`, `fourth_name`, `group_id`, `city`, `profession`, `profile_photo`, `icq`, `skype`, `mobile`, `about`) VALUES
-	(1, 'Имя', 'Фамилия', 'Отчество', 'Девичья фамилия', 1, 'Москва', 'Программист', 31, '123456', 'skype', '+79998887766', 'О себе, куча текста\r\nаще\r\n\r\nтест'),
-	(4, 'test', 'test', 'test', NULL, 1, 'test', NULL, 0, NULL, NULL, NULL, NULL);
+	(1, 'Имя', 'Фамилия', 'Отчество', 'Девичья фамилия', 1, 'Москва', 'Программист', 0, '123456', 'skype', '+79998887766', 'О себе, куча текста\r\nаще\r\n\r\nтест'),
+	(4, 'test', 'test', 'test', NULL, 1, 'test', NULL, 0, NULL, NULL, NULL, NULL),
+	(5, 'sdfsdf', 'sdfsdf', 'sdfsdf', NULL, 1, 'sdfsdf', NULL, 0, NULL, NULL, NULL, NULL);
 /*!40000 ALTER TABLE `profile` ENABLE KEYS */;
 
 
@@ -307,13 +312,13 @@ CREATE TABLE IF NOT EXISTS `users` (
   PRIMARY KEY (`id`),
   KEY `FK_users_profile` (`profile_id`),
   CONSTRAINT `FK_users_profile` FOREIGN KEY (`profile_id`) REFERENCES `profile` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 
 -- Dumping data for table social-pooh.users: ~2 rows (approximately)
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
 INSERT INTO `users` (`id`, `login`, `password`, `email`, `profile_id`, `identity`, `network`, `state`, `access`) VALUES
-	(1, 'test', 'test', 'test@test.ru', 1, NULL, NULL, 0, 1),
-	(3, 'test2', 'test2', 'test@test.fs', 4, NULL, NULL, 0, 0);
+	(1, 'test', 'test', 'test@test.ru', 1, '', '', 0, 1),
+	(4, 'test2', '098f6bcd4621d373cade4e832627b4f6', 'twet@tewt.wt', 5, NULL, NULL, 0, 0);
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
 /*!40014 SET FOREIGN_KEY_CHECKS=IF(@OLD_FOREIGN_KEY_CHECKS IS NULL, 1, @OLD_FOREIGN_KEY_CHECKS) */;
