@@ -100,7 +100,6 @@ class SiteController extends Controller
         $model = new Users;
         $profile = new Profile;
         $group = Groups::model()->findAll();
-        $groups['0'] = 'без группы';
         for($i=0, $count=count($group); $i<$count; $i++)
         {
             $id = $group[$i]->id;
@@ -120,6 +119,7 @@ class SiteController extends Controller
             if($model->validate() AND $profile->validate()){
                 if($profile->save()){
                     $model->profile_id = $profile->id;
+                    $model->password = md5($model->password);
                     if($model->save()){
                         $this->redirect(Yii::app()->user->returnUrl);
                     }
@@ -141,7 +141,6 @@ class SiteController extends Controller
         $model = Users::model()->findByPk(Yii::app()->user->id);
         $profile = $model->profile;
         $group = Groups::model()->findAll();
-        $groups['0'] = 'без группы';
         for($i=0, $count=count($group); $i<$count; $i++)
         {
             $id = $group[$i]->id;

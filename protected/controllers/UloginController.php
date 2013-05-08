@@ -38,7 +38,6 @@ class UloginController extends Controller
             $profile->second_name = $values->second_name;
 
             $group = Groups::model()->findAll();
-            $groups['0'] = 'без группы';
             for($i=0, $count=count($group); $i<$count; $i++)
             {
                 $id = $group[$i]->id;
@@ -60,6 +59,7 @@ class UloginController extends Controller
                 if($profile->save()){
                     $model->profile_id = $profile->id;
                     $model->state = '1';
+                    $model->password = md5($model->password);
                     if($model->save()){
                         $this->redirect(Yii::app()->user->returnUrl);
                     }

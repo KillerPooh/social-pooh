@@ -5,6 +5,7 @@ class UserIdentity extends CUserIdentity
 	public function authenticate()
 	{
         $users = Users::model()->findByAttributes(array('login'=>$this->username));
+        $this->password = md5($this->password);
 		if(!isset($users->id)){
             $this->errorCode=self::ERROR_USERNAME_INVALID;
         } elseif($users->password!==$this->password) {

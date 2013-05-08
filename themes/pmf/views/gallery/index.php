@@ -21,7 +21,7 @@
     <?php
     $count = count($last_photos);
     for($i=0; $i<$count; $i++){
-        if($i=='5'){
+        if($i=='8'){
             echo "<div style='display:none;'>";
         }
         $mini_photo_url = $this->createAbsoluteUrl('/')."/albums/".$last_photos[$i]->profile_id."/mini/".$last_photos[$i]->id.".".$last_photos[$i]->extension;

@@ -65,7 +65,32 @@ class AlbumsController extends Controller
 
                         $filename = "albums/".$user->profile_id."/".$photo->id.".".$extension;
                         list($width, $height) = getimagesize($filename);
-                        $newwidth = '100';
+
+                        if($width>$height){
+                            $newheight = 112;
+                            $maxwidth = 148;
+                            $newwidth = round($width / ($height / $newheight));
+                            $thumb = imagecreatetruecolor($maxwidth, $newheight);
+                        } else {
+                            $newwidth = 148;
+                            $maxheight = 112;
+                            $newheight = round($height / ($width / $newwidth));
+                            $thumb = imagecreatetruecolor($newwidth, $maxheight);
+                        }
+
+                        if($extension=='jpg'){
+                            $source = imagecreatefromjpeg($filename);
+                        } else {
+                            $source = imagecreatefrompng($filename);
+                        }
+                        imagecopyresampled($thumb, $source, 0, 0, 0, 0, $newwidth, $newheight, $width, $height);
+                        if($extension=='jpg'){
+                            imagejpeg($thumb, "albums/".$user->profile_id."/mini/".$photo->id.".".$extension);
+                        } else {
+                            imagepng($thumb, "albums/".$user->profile_id."/mini/".$photo->id.".".$extension);
+                        }
+
+                        /*$newwidth = '100';
                         $newheight = round($height / ($width / $newwidth));
                         $thumb = imagecreatetruecolor($newwidth, $newheight);
                         if($extension=='jpg'){
@@ -78,7 +103,7 @@ class AlbumsController extends Controller
                             imagejpeg($thumb, "albums/".$user->profile_id."/mini/".$photo->id.".".$extension);
                         } else {
                             imagepng($thumb, "albums/".$user->profile_id."/mini/".$photo->id.".".$extension);
-                        }
+                        }*/
 
                         $album->last_update = date("Y.m.d H:i:s");
                         $album->save();

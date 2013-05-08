@@ -38,7 +38,7 @@ class GalleryController extends Controller
         $album = Albums::model()->findByPk($id);
         $user = Users::model()->findByPk(Yii::app()->user->id);
         $photo = new Photo;
-        if($album->profile_id == $user->profile_id){
+        //if($album->profile_id == $user->profile_id){
             if(isset($_POST['Photo'])){
                 $photo->attributes = $_POST['Photo'];
                 $photo->photo_file = $_POST['Photo']['photo_file'];
@@ -65,7 +65,32 @@ class GalleryController extends Controller
 
                         $filename = "albums/".$user->profile_id."/".$photo->id.".".$extension;
                         list($width, $height) = getimagesize($filename);
-                        $newwidth = '100';
+
+                        if($width>$height){
+                            $newheight = 112;
+                            $maxwidth = 148;
+                            $newwidth = round($width / ($height / $newheight));
+                            $thumb = imagecreatetruecolor($maxwidth, $newheight);
+                        } else {
+                            $newwidth = 148;
+                            $maxheight = 112;
+                            $newheight = round($height / ($width / $newwidth));
+                            $thumb = imagecreatetruecolor($newwidth, $maxheight);
+                        }
+
+                        if($extension=='jpg'){
+                            $source = imagecreatefromjpeg($filename);
+                        } else {
+                            $source = imagecreatefrompng($filename);
+                        }
+                        imagecopyresampled($thumb, $source, 0, 0, 0, 0, $newwidth, $newheight, $width, $height);
+                        if($extension=='jpg'){
+                            imagejpeg($thumb, "albums/".$user->profile_id."/mini/".$photo->id.".".$extension);
+                        } else {
+                            imagepng($thumb, "albums/".$user->profile_id."/mini/".$photo->id.".".$extension);
+                        }
+
+                        /*$newwidth = '100';
                         $newheight = round($height / ($width / $newwidth));
                         $thumb = imagecreatetruecolor($newwidth, $newheight);
                         if($extension=='jpg'){
@@ -78,7 +103,7 @@ class GalleryController extends Controller
                             imagejpeg($thumb, "albums/".$user->profile_id."/mini/".$photo->id.".".$extension);
                         } else {
                             imagepng($thumb, "albums/".$user->profile_id."/mini/".$photo->id.".".$extension);
-                        }
+                        }*/
 
                         $album->last_update = date("Y.m.d H:i:s");
                         $album->save();
@@ -87,7 +112,7 @@ class GalleryController extends Controller
                 }
 
             }
-        }
+        //}
 
         $this->render('upload',array(
             'album'=>$album,

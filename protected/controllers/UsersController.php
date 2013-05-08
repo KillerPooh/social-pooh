@@ -59,20 +59,26 @@ class UsersController extends Controller
 	 */
 	public function actionUpdate($id)
 	{
-		$model=$this->loadModel($id);
+        $model = Users::model()->findByPk($id);
+        $profile = $model->profile;
+        $group = Groups::model()->findAll();
+        for($i=0, $count=count($group); $i<$count; $i++)
+        {
+            $id = $group[$i]->id;
+            $groups[$id] = $group[$i]->group_name;
+        }
 
-		// Uncomment the following line if AJAX validation is needed
-		// $this->performAjaxValidation($model);
-
-		if(isset($_POST['Users']))
-		{
+		if(isset($_POST['Users']) AND isset($_POST['Profile'])){
 			$model->attributes=$_POST['Users'];
-			if($model->save())
+            $profile->attributes=$_POST['Profile'];
+			if($model->save() AND $profile->save())
 				$this->redirect(array('view','id'=>$model->id));
 		}
 
 		$this->render('update',array(
 			'model'=>$model,
+            'profile'=>$profile,
+            'groups'=>$groups,
 		));
 	}
 
@@ -83,7 +89,10 @@ class UsersController extends Controller
 	 */
 	public function actionDelete($id)
 	{
-		$this->loadModel($id)->delete();
+        $user = Users::model()->findByPk($id);
+        $user->profile_id='';
+        $user->save();
+        $user->delete();
 
 		// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
 		if(!isset($_GET['ajax']))

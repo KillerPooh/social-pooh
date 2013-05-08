@@ -24,8 +24,12 @@ $this->breadcrumbs=array(
     <?php } ?>
     <tr>
         <td width="200px" style="vertical-align: top;">
-            <?php $extension = Photo::model()->findByPk($model->profile_photo);
-            $photo_url = $this->createAbsoluteUrl('/')."/albums/".$model->id."/".$model->profile_photo.".".$extension->extension; ?>
+            <?php if($model->profile_photo=='0'){
+                $photo_url = $this->createAbsoluteUrl('/')."/dummy/image.png";
+            } else {
+                $extension = Photo::model()->findByPk($model->profile_photo);
+                $photo_url = $this->createAbsoluteUrl('/')."/albums/".$model->id."/".$model->profile_photo.".".$extension->extension;
+            } ?>
             <img class="main-img" src="<?php echo $photo_url; ?>" />
         </td>
         <td style="vertical-align: top;">
@@ -48,7 +52,7 @@ $this->breadcrumbs=array(
                 echo "<p><a href='".$profile_albums."'>Все альбомы</a></p>";
             }
             for($i=0; $i<$count; $i++){
-                if($i=='5'){
+                if($i=='4'){
                     echo "<div style='display:none;'>";
                 }
                 $mini_photo_url = $this->createAbsoluteUrl('/')."/albums/".$model->id."/mini/".$last_photos[$i]->id.".".$last_photos[$i]->extension;
@@ -64,7 +68,7 @@ $this->breadcrumbs=array(
             <?php
             $count=count($last_notes);
             for($i=0; $i<$count; $i++){
-                if($i=='5'){
+                if($i=='4'){
                     echo "<div style='display:none;'>";
                 }
                 $mini_photo_url = $this->createAbsoluteUrl('/')."/albums/".$last_notes[$i]->photo->profile_id."/mini/".$last_notes[$i]->photo->id.".".$last_notes[$i]->photo->extension;

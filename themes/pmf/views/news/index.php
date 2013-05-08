@@ -65,7 +65,7 @@ $this->breadcrumbs = array(
             } else {
                 $class = 'right';
             }
-            echo "<a href=\"#\" class=\"".$class."\"><img src=\"".$this->createAbsoluteUrl('/')."/albums/".$val['profile_id']."/mini/".$val['id'].".".$val['extension']."\"/></a>";
+            echo "<a href=\"".$this->createAbsoluteUrl('/photo/view', array('id'=>$val['id']))."\" class=\"".$class."\"><img src=\"".$this->createAbsoluteUrl('/')."/albums/".$val['profile_id']."/mini/".$val['id'].".".$val['extension']."\"/></a>";
         } ?>
     </div>
 </div>
